@@ -17,7 +17,7 @@ ChessGame::ChessGame(QWidget *parent) : QGraphicsView(parent) {
   brush.setStyle(Qt::SolidPattern);
   brush.setColor(Qt::black);
   setBackgroundBrush(brush);
-  pieceToMove = NULL;
+  pieceToMove = nullptr;
 
   // display turn
   _turnDisplay = new QGraphicsTextItem();

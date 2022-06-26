@@ -12,28 +12,26 @@ ChessBoardTile *ChessPiece::getCurrentTile() { return _currentTile; }
 void ChessPiece::setCurrentTile(ChessBoardTile *value) { _currentTile = value; }
 
 void ChessPiece::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-  // Deselect
-  //  if (this == _currentGame.pieceToMove) {
-  //    _currentGame.pieceToMove->currentTile->resetOriginalColor();
-  //    _currentGame.pieceToMove->decolor();
-  //    _currentGame.pieceToMove = NULL;
-  //    return;
-  //  }
-  //  // if it is already consumed or not the respective color's turn
-  //  if ((!getIsPlaced()) ||
-  //      ((game->getTurn() != this->getSide()) && (!game->pieceToMove)))
-  //    return;
-  //  // selecting
-  //  if (!game->pieceToMove) {
-
-  //    game->pieceToMove = this;
-  //    game->pieceToMove->getCurrentBox()->setColor(Qt::red);
-  //    game->pieceToMove->moves();
-  //  }
-  //  // Consuming counterPart of the CHessBox
-  //  else if (this->getSide() != game->pieceToMove->getSide()) {
-  //    this->getCurrentBox()->mousePressEvent(event);
-  //  }
+  if (this == _currentGame.pieceToMove) {
+    _currentGame.pieceToMove->_currentTile->setColor(_currentTile->getColor());
+    _currentGame.pieceToMove->decolor();
+    _currentGame.pieceToMove = nullptr;
+    return;
+  }
+  // if it is already consumed or not the respective color's turn
+  if ((!getIsPlaced()) ||
+      ((_currentGame.turn() != this->side()) && (!_currentGame.pieceToMove)))
+    return;
+  // selecting
+  if (!_currentGame.pieceToMove) {
+    _currentGame.pieceToMove = this;
+    _currentGame.pieceToMove->_currentTile->setColor(Qt::red);
+    _currentGame.pieceToMove->moves();
+  }
+  // Consuming counterPart of the CHessBox
+  else if (this->side() != _currentGame.pieceToMove->side()) {
+    this->_currentTile->mousePressEvent(event);
+  }
 }
 
 bool ChessPiece::getIsPlaced() { return _isPlaced; }
@@ -41,20 +39,21 @@ bool ChessPiece::getIsPlaced() { return _isPlaced; }
 void ChessPiece::setIsPlaced(bool value) { _isPlaced = value; }
 QList<ChessBoardTile *> ChessPiece::moveLocation() { return {}; }
 void ChessPiece::decolor() {
-  //    for (size_t i = 0, n = location.size(); i < n; i++) {
-  //      location[i]->resetOriginalColor();
-  //    }
+  for (size_t i = 0, n = _location.size(); i < n; i++) {
+    _location[i]->setColor(_location[i]->getColor());
+  }
 }
 
-bool ChessPiece::tileSetting(ChessBoardTile *box) {
-  //  if (box->getHasChessPiece()) {
-  //    King *q = dynamic_cast<King *>(location.last()->currentPiece);
-  //    if (q) {
-  //      box->setColor(Qt::blue);
-  //    } else
-  //      box->setColor(Qt::red);
-  //    return true;
-  //  } else
-  //    location.last()->setColor(Qt::darkRed);
-  //  return false;
+bool ChessPiece::tileSetting(ChessBoardTile *tile) {
+  if (tile->hasChessPiece()) {
+    //      King *q = dynamic_cast<King *>(location.last()->currentPiece);
+    //    if (q) {
+    //      tile->setColor(Qt::blue);
+    //    } else
+    //      tile->setColor(Qt::red);
+    //    return true;
+    //  } else
+    //    _location.last()->setColor(Qt::darkRed);
+    return false;
+  }
 }

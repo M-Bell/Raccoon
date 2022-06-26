@@ -9,7 +9,7 @@ void ChessBoard::drawBoard(const int x, const int y) {
   int shift = 100;
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
-      ChessBoardTile *tile = new ChessBoardTile();
+      ChessBoardTile *tile = new ChessBoardTile(_currentGame);
       _currentGame._allTiles[i][j] = tile;
       tile->row() = i;
       tile->col() = j;
@@ -78,18 +78,18 @@ void ChessBoard::placePieces() {
     for (int j = 0; j < 8; j++) {
 
       ChessBoardTile *tile = _currentGame._allTiles[i][j];
-      if (i < 1) {
+      if (i == 4) {
         static int k = 0;
         tile->placePiece(_allPieces[k]);
         _currentGame._playablePieces.append(_allPieces[k]);
         _currentGame.addToScene(_allPieces[k++]);
       }
-//      if (i > 6) {
-//        static int h;
-//        tile->placePiece(_allPieces[h]);
-//        _currentGame._playablePieces.append(_allPieces[h]);
-//        _currentGame.addToScene(_allPieces[h += 2]);
-//      }
+      //      if (i > 6) {
+      //        static int h;
+      //        tile->placePiece(_allPieces[h]);
+      //        _currentGame._playablePieces.append(_allPieces[h]);
+      //        _currentGame.addToScene(_allPieces[h += 2]);
+      //      }
     }
   }
 }

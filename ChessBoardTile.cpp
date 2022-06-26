@@ -1,9 +1,8 @@
 #include "ChessBoardTile.h"
 #include "ChessGame.h"
 
-extern ChessGame *_game;
-ChessBoardTile::ChessBoardTile(QGraphicsItem *parent)
-    : QGraphicsRectItem(parent) {
+ChessBoardTile::ChessBoardTile(ChessGame &game, QGraphicsItem *parent)
+    : QGraphicsRectItem(parent), _currentGame(game) {
   // making the Square CHess Box
   setRect(0, 0, 100, 100);
   _brush.setStyle(Qt::SolidPattern);
@@ -11,65 +10,68 @@ ChessBoardTile::ChessBoardTile(QGraphicsItem *parent)
   _currentPiece = nullptr;
 }
 
-ChessBoardTile::~ChessBoardTile() { }
+ChessBoardTile::~ChessBoardTile() {}
 
 void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-  //  //  qDebug() << getChessPieceColor();
-  //  // Deselecting counter part of ChessPiece
-  //  if (_currentPiece == _game->pieceToMove && _currentPiece) {
+  //  qDebug() << getChessPieceColor();
+  // Deselecting counter part of ChessPiece
+  if (_currentPiece == _currentGame.pieceToMove && _currentPiece) {
 
-  //    _currentPiece->mousePressEvent(event);
-  //    return;
-  //  }
+    _currentPiece->mousePressEvent(event);
+    return;
+  }
 
-  //  // if selected
-  //  if (_game->pieceToMove) {
-  //    // if same team
-  //    if (this->_currentPiece-> == _game->pieceToMove->getSide())
-  //      return;
-  //    // removing the eaten piece
-  //    QList<ChessBoardTile *> movLoc = game->pieceToMove->moveLocation();
-  //    // TO make sure the selected box is in move zone
-  //    int check = 0;
-  //    for (size_t i = 0, n = movLoc.size(); i < n; i++) {
-  //      if (movLoc[i] == this) {
-  //        check++;
-  //      }
-  //    }
-  //    // if not prsent return
-  //    if (check == 0)
-  //      return;
-  //    // change the color back to normal
-  //    game->pieceToMove->decolor();
-  //    // make the first move false applicable for pawn only
-  //    game->pieceToMove->firstMove = false;
-  //    // this is to eat or consume the enemy present inn the movable region
-  //    if (this->getHasChessPiece()) {
-  //      this->currentPiece->setIsPlaced(false);
-  //      this->currentPiece->setCurrentBox(NULL);
-  //      game->placeInDeadPlace(this->currentPiece);
-  //    }
-  //    // changing the new stat and resetting the previous left region
-  //    game->pieceToMove->getCurrentBox()->setHasChessPiece(false);
-  //    game->pieceToMove->getCurrentBox()->currentPiece = NULL;
-  //    game->pieceToMove->getCurrentBox()->resetOriginalColor();
-  //    placePiece(game->pieceToMove);
+  // if selected
+  if (_currentGame.pieceToMove) {
+    // if same team
+    if (this->_currentPiece->side() == _currentGame.pieceToMove->side())
+      return;
+    // removing the eaten piece
+    QList<ChessBoardTile *> movLoc = _currentGame.pieceToMove->moveLocation();
+    // TO make sure the selected box is in move zone
+    int check = 0;
+    for (size_t i = 0, n = movLoc.size(); i < n; i++) {
+      if (movLoc[i] == this) {
+        check++;
+      }
+    }
+    // if not prsent return
+    if (check == 0)
+      return;
+    // change the color back to normal
+    _currentGame.pieceToMove->decolor();
+    // make the first move false applicable for pawn only
+    _currentGame.pieceToMove->firstMove = false;
+    // this is to eat or consume the enemy present inn the movable region
+    if (this->hasChessPiece()) {
+      this->_currentPiece->setIsPlaced(false);
+      this->_currentPiece->setCurrentTile(nullptr);
+      _currentGame.placeInDeadPlace(this->_currentPiece);
+    }
+    // changing the new stat and resetting the previous left region
+    _currentGame.pieceToMove->getCurrentTile()->_currentPiece->side() = NONE;
+    _currentGame.pieceToMove->getCurrentTile()->_currentPiece = nullptr;
+    _currentGame.pieceToMove->getCurrentTile()->setColor(
+        _currentGame.pieceToMove->getCurrentTile()->getColor());
+    placePiece(_currentGame.pieceToMove);
 
-  //    game->pieceToMove = NULL;
-  //    // changing turn
-  //    game->changeTurn();
-  //    checkForCheck();
-  //  }
-  //  // Selecting couterpart of the chessPiece
-  //  else if (this->getHasChessPiece()) {
-  //    this->currentPiece->mousePressEvent(event);
-  //  }
+    _currentGame.pieceToMove = NULL;
+    // changing turn
+    _currentGame.changeTurn();
+    checkForCheck();
+  }
+  // Selecting couterpart of the chessPiece
+  else if (this->hasChessPiece()) {
+    this->_currentPiece->mousePressEvent(event);
+  }
 }
 
 void ChessBoardTile::setColor(QColor color) {
   _brush.setColor(color);
   setBrush(color);
 }
+
+QColor &ChessBoardTile::getColor() { return _color; }
 
 void ChessBoardTile::placePiece(ChessPiece *piece) {
 
@@ -80,62 +82,40 @@ void ChessBoardTile::placePiece(ChessPiece *piece) {
   _currentPiece = piece;
 }
 
-// void ChessBoardTile::resetOriginalColor() { setColor(originalColor); }
-
-// void ChessBoardTile::setOriginalColor(QColor value) {
-//   originalColor = value;
-//   setColor(originalColor);
-// }
-
-// bool ChessBoardTile::getHasChessPiece() { return hasChessPiece; }
-
-// void ChessBoardTile::setHasChessPiece(bool value, ChessPiece *piece) {
-//   hasChessPiece = value;
-//   if (value)
-//     setChessPieceColor(piece->getSide());
-//   else
-//     setChessPieceColor("NONE");
-// }
-
 void ChessBoardTile::checkForCheck() {
-  //  int c = 0;
-  //  QList<ChessPiece *> pList = game->alivePiece;
-  //  for (size_t i = 0, n = pList.size(); i < n; i++) {
+  int c = 0;
+  QList<ChessPiece *> pList = _currentGame._playablePieces;
+  for (size_t i = 0, n = pList.size(); i < n; i++) {
 
-  //    King *p = dynamic_cast<King *>(pList[i]);
-  //    if (p) {
-  //      continue;
-  //    }
-  //    pList[i]->moves();
-  //    pList[i]->decolor();
-  //    QList<ChessBoardTile *> bList = pList[i]->moveLocation();
-  //    for (size_t j = 0, n = bList.size(); j < n; j++) {
-  //      King *p = dynamic_cast<King *>(bList[j]->currentPiece);
-  //      if (p) {
-  //        if (p->getSide() == pList[i]->getSide())
-  //          continue;
-  //        bList[j]->setColor(Qt::blue);
-  //        pList[i]->getCurrentBox()->setColor(Qt::darkRed);
-  //        if (!game->check->isVisible())
-  //          game->check->setVisible(true);
-  //        else {
-  //          bList[j]->resetOriginalColor();
-  //          pList[i]->getCurrentBox()->resetOriginalColor();
-  //          game->gameOver();
-  //        }
-  //        c++;
-  //      }
-  //    }
-  //  }
-  //  if (!c) {
-  //    game->check->setVisible(false);
-  //    for (size_t i = 0, n = pList.size(); i < n; i++)
-  //      pList[i]->getCurrentBox()->resetOriginalColor();
-  //  }
+    //    King *p = dynamic_cast<King *>(pList[i]);
+    //    if (p) {
+    //      continue;
+    //    }
+    pList[i]->moves();
+    pList[i]->decolor();
+    QList<ChessBoardTile *> bList = pList[i]->moveLocation();
+    //    for (size_t j = 0, n = bList.size(); j < n; j++) {
+    //            King *p = dynamic_cast<King *>(bList[j]->_currentPiece);
+    //            if (p) {
+    //              if (p->getSide() == pList[i]->side())
+    //                continue;
+    //            bList[j]->setColor(Qt::blue);
+    //            pList[i]->getCurrentTile()->setColor(Qt::darkRed);
+    //            if (!_currentGame._check->isVisible())
+    //              _currentGame._check->setVisible(true);
+    //            else {
+    //              bList[j]->setColor(bList[j]->getColor());
+    //              pList[i]->getCurrentTile()->setColor(
+    //                  pList[i]->getCurrentTile()->getColor());
+    //              _currentGame.gameOver();
+    //            }
+    //            c++;
+    //          }
+    //    }
+  }
+  if (!c) {
+    _currentGame._check->setVisible(false);
+    for (size_t i = 0, n = pList.size(); i < n; i++)
+      pList[i]->getCurrentTile()->setColor(pList[i]->getCurrentTile()->getColor());
+  }
 }
-
-// QString ChessBoardTile::getChessPieceColor() { return chessPieceColor; }
-
-// void ChessBoardTile::setChessPieceColor(QString value) {
-//   chessPieceColor = value;
-// }

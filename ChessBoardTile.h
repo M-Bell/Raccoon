@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ChessGame.h"
 #include "ChessPieceSide.h"
 #include <QBrush>
 #include <QGraphicsRectItem>
@@ -7,6 +8,7 @@ class ChessPiece;
 
 class ChessBoardTile : public QGraphicsRectItem {
 private:
+  ChessGame &_currentGame;
   QBrush _brush;
   QColor _color;
   ChessPiece *_currentPiece;
@@ -16,7 +18,7 @@ private:
 
 public:
   // Constructor
-  ChessBoardTile(QGraphicsItem *parent = 0);
+  ChessBoardTile(ChessGame& game, QGraphicsItem *parent = 0);
   ~ChessBoardTile();
 
   // public member function
@@ -29,6 +31,7 @@ public:
   inline int &col() { return _col; }
 
   void setColor(QColor color);
+  QColor &getColor();
   void placePiece(ChessPiece *piece);
 
   inline const ChessPieceSide &сhessPieceColor() const {

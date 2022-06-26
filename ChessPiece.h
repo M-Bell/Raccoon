@@ -11,14 +11,15 @@ protected:
   ChessGame &_currentGame;
   ChessPieceSide _side;
   bool _isPlaced;
+  QList<ChessBoardTile *> _location;
 
 public:
   ChessPiece(ChessPieceSide side, ChessGame &game, QGraphicsItem *parent = 0);
 
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void setCurrentTile(ChessBoardTile *tile);
+  void setCurrentTile(ChessBoardTile *tile);
 
-    ChessBoardTile *getCurrentTile() ;
+  ChessBoardTile *getCurrentTile();
 
   inline const ChessPieceSide &side() const { return _side; }
   inline ChessPieceSide &side() { return _side; }
