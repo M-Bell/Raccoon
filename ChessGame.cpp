@@ -106,7 +106,7 @@ void ChessGame::changeTurn() {
     _turnDisplay->setPlainText("Turn : BLACK");
   } else {
     turn() = WHITE;
-    _turnDisplay->setPlainText("Turn : BLACK");
+    _turnDisplay->setPlainText("Turn : WHITE");
   }
 }
 
@@ -180,7 +180,9 @@ void ChessGame::displayMainMenu() {
   //  quitButton->setPos(qxPos, qyPos);
   //  connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
   //  addToScene(quitButton);
+
   drawChessBoard();
+  start();
   //  listG.append(quitButton);
 }
 

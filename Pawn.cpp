@@ -10,9 +10,9 @@ Pawn::Pawn(ChessPieceSide side, ChessGame &game, QGraphicsItem *parent)
 
 void Pawn::setImage() {
   if (_side == WHITE)
-    setPixmap(QPixmap(":/images/images/chess_piece_pawn.png"));
+    setPixmap(QPixmap(":/res/images/chess_piece_pawn_white.png"));
   else
-    setPixmap(QPixmap(":/images/images/chess_piece_pawn.png"));
+    setPixmap(QPixmap(":/res/images/chess_piece_pawn_black.png"));
 }
 
 void Pawn::moves() {

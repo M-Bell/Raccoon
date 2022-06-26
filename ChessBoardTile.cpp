@@ -24,7 +24,7 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   // if selected
   if (_currentGame.pieceToMove) {
     // if same team
-    if (this->_currentPiece->side() == _currentGame.pieceToMove->side())
+    if (this->сhessPieceColor() == _currentGame.pieceToMove->side())
       return;
     // removing the eaten piece
     QList<ChessBoardTile *> movLoc = _currentGame.pieceToMove->moveLocation();
@@ -49,13 +49,13 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
       _currentGame.placeInDeadPlace(this->_currentPiece);
     }
     // changing the new stat and resetting the previous left region
-    _currentGame.pieceToMove->getCurrentTile()->_currentPiece->side() = NONE;
+
     _currentGame.pieceToMove->getCurrentTile()->_currentPiece = nullptr;
     _currentGame.pieceToMove->getCurrentTile()->setColor(
         _currentGame.pieceToMove->getCurrentTile()->getColor());
     placePiece(_currentGame.pieceToMove);
 
-    _currentGame.pieceToMove = NULL;
+    _currentGame.pieceToMove = nullptr;
     // changing turn
     _currentGame.changeTurn();
     checkForCheck();
@@ -78,7 +78,6 @@ void ChessBoardTile::placePiece(ChessPiece *piece) {
   piece->setPos(x() + 50 - piece->pixmap().width() / 2,
                 y() + 50 - piece->pixmap().width() / 2);
   piece->setCurrentTile(this);
-  сhessPieceColor() = piece->side();
   _currentPiece = piece;
 }
 

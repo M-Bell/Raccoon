@@ -12,13 +12,12 @@ private:
   QBrush _brush;
   QColor _color;
   ChessPiece *_currentPiece;
-  ChessPieceSide _chessPieceSide;
   int _row;
   int _col;
 
 public:
   // Constructor
-  ChessBoardTile(ChessGame& game, QGraphicsItem *parent = 0);
+  ChessBoardTile(ChessGame &game, QGraphicsItem *parent = 0);
   ~ChessBoardTile();
 
   // public member function
@@ -34,11 +33,9 @@ public:
   QColor &getColor();
   void placePiece(ChessPiece *piece);
 
-  inline const ChessPieceSide &сhessPieceColor() const {
-    return _chessPieceSide;
-  };
-
-  inline ChessPieceSide &сhessPieceColor() { return _chessPieceSide; };
+  inline ChessPieceSide сhessPieceColor() const {
+    return (_currentPiece == nullptr) ? NONE : _currentPiece->side();
+  }
 
   inline bool hasChessPiece() { return _currentPiece != nullptr; }
 

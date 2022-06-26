@@ -14,14 +14,18 @@ void ChessBoard::drawBoard(const int x, const int y) {
       tile->row() = i;
       tile->col() = j;
       tile->setPos(x + shift * j, y + shift * i);
-      if ((i + j) % 2 == 0)
+      if ((i + j) % 2 == 0) {
+
         tile->setColor(Qt::lightGray);
-      else
+        tile->getColor() = Qt::lightGray;
+      } else {
+
         tile->setColor(Qt::darkGray);
+        tile->getColor() = Qt::darkGray;
+      }
       _currentGame.addToScene(tile);
     }
   }
-  placePieces();
 }
 
 void ChessBoard::initPieces() {
@@ -78,18 +82,20 @@ void ChessBoard::placePieces() {
     for (int j = 0; j < 8; j++) {
 
       ChessBoardTile *tile = _currentGame._allTiles[i][j];
-      if (i == 4) {
-        static int k = 0;
+      if (i == 1) {
+        static int k = 1;
         tile->placePiece(_allPieces[k]);
         _currentGame._playablePieces.append(_allPieces[k]);
-        _currentGame.addToScene(_allPieces[k++]);
+        _currentGame.addToScene(_allPieces[k]);
+        k += 2;
       }
-      //      if (i > 6) {
-      //        static int h;
-      //        tile->placePiece(_allPieces[h]);
-      //        _currentGame._playablePieces.append(_allPieces[h]);
-      //        _currentGame.addToScene(_allPieces[h += 2]);
-      //      }
+      if (i == 6) {
+        static int h = 0;
+        tile->placePiece(_allPieces[h]);
+        _currentGame._playablePieces.append(_allPieces[h]);
+        _currentGame.addToScene(_allPieces[h]);
+        h += 2;
+      }
     }
   }
 }

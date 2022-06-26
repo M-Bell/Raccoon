@@ -37,23 +37,22 @@ void ChessPiece::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 bool ChessPiece::getIsPlaced() { return _isPlaced; }
 
 void ChessPiece::setIsPlaced(bool value) { _isPlaced = value; }
-QList<ChessBoardTile *> ChessPiece::moveLocation() { return {}; }
+QList<ChessBoardTile *> ChessPiece::moveLocation() { return _location; }
 void ChessPiece::decolor() {
-  for (size_t i = 0, n = _location.size(); i < n; i++) {
+  for (qsizetype i = 0; i < _location.size(); i++) {
     _location[i]->setColor(_location[i]->getColor());
   }
 }
 
 bool ChessPiece::tileSetting(ChessBoardTile *tile) {
   if (tile->hasChessPiece()) {
-    //      King *q = dynamic_cast<King *>(location.last()->currentPiece);
-    //    if (q) {
-    //      tile->setColor(Qt::blue);
-    //    } else
-    //      tile->setColor(Qt::red);
-    //    return true;
-    //  } else
-    //    _location.last()->setColor(Qt::darkRed);
-    return false;
-  }
+    // King *q = dynamic_cast<King *>(location.last()->currentPiece);
+    if (false) {
+      tile->setColor(Qt::blue);
+    } else
+      tile->setColor(Qt::red);
+    return true;
+  } else
+    _location.last()->setColor(Qt::darkRed);
+  return false;
 }
