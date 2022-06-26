@@ -29,11 +29,13 @@ public:
   inline const int &col() const { return _col; }
   inline int &col() { return _col; }
 
+  inline ChessPiece *currentPiece() const { return _currentPiece; }
+
   void setColor(QColor color);
   QColor &getColor();
   void placePiece(ChessPiece *piece);
 
-  inline ChessPieceSide сhessPieceColor() const {
+  inline ChessPieceSide chessPieceColor() const {
     return (_currentPiece == nullptr) ? NONE : _currentPiece->side();
   }
 

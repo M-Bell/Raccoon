@@ -1,5 +1,6 @@
 #include "ChessGame.h"
 #include "ChessBoard.h"
+#include "King.h"
 #include <QDebug>
 #include <QPixmap>
 ChessGame::ChessGame(QWidget *parent) : QGraphicsView(parent) {
@@ -74,21 +75,20 @@ void ChessGame::displayDeadBlack() {
 void ChessGame::placeInDeadPlace(ChessPiece *piece) {
   if (piece->side() == WHITE) {
     _whiteDead.append(piece);
-    //    King *g = dynamic_cast<King *>(piece);
-    //    if (g) {
-
-    //      _check->setPlainText("Black Won");
-    //      gameOver();
-    //    }
+    King *g = dynamic_cast<King *>(piece);
+    if (g) {
+      _check->setPlainText("Black Won");
+      gameOver();
+    }
     displayDeadWhite();
   } else {
     _blackDead.append(piece);
-    //    King *g = dynamic_cast<King *>(piece);
-    //    if (g) {
+    King *g = dynamic_cast<King *>(piece);
+    if (g) {
 
-    //      _check->setPlainText("White Won");
-    //      gameOver();
-    //    }
+      _check->setPlainText("White Won");
+      gameOver();
+    }
     displayDeadBlack();
   }
   _playablePieces.removeAll(piece);
@@ -144,50 +144,15 @@ void ChessGame::drawDeadHolder(int x, int y, QColor color) {
 }
 
 void ChessGame::displayMainMenu() {
-  //  QGraphicsPixmapItem *p = new QGraphicsPixmapItem();
-  //  p->setPixmap(QPixmap(":/images/king1.png"));
-  //  p->setPos(420, 170);
-  //  addToScene(p);
-  //  _listG.append(p);
-
-  //  QGraphicsPixmapItem *p1 = new QGraphicsPixmapItem();
-  //  p1->setPixmap(QPixmap(":/images/king.png"));
-  //  p1->setPos(920, 170);
-  //  addToScene(p1);
-  //  _listG.append(p1);
-  // Create the title
-  //  QGraphicsTextItem *titleText = new QGraphicsTextItem("Chess Pro");
-  //  QFont titleFont("arial", 50);
-  //  titleText->setFont(titleFont);
-  //  int xPos = width() / 2 - titleText->boundingRect().width() / 2;
-  //  int yPos = 150;
-  //  titleText->setPos(xPos, yPos);
-  //  addToScene(titleText);
-  //  _listG.append(titleText);
-  // create Button
-  //  Button *playButton = new Button("Play 2 v 2");
-  //  int pxPos = width() / 2 - playButton->boundingRect().width() / 2;
-  //  int pyPos = 300;
-  //  playButton->setPos(pxPos, pyPos);
-  //  connect(playButton, SIGNAL(clicked()), this, SLOT(start()));
-  //  addToScene(playButton);
-  //  listG.append(playButton);
-
-  // Create Quit Button
-  //  Button *quitButton = new Button("Quit");
-  //  int qxPos = width() / 2 - quitButton->boundingRect().width() / 2;
-  //  int qyPos = 375;
-  //  quitButton->setPos(qxPos, qyPos);
-  //  connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
-  //  addToScene(quitButton);
-
   drawChessBoard();
   start();
-  //  listG.append(quitButton);
+
+//  _allTiles[6][7]->currentPiece()->mousePressEvent(nullptr);
+//  _allTiles[5][7]->mousePressEvent(nullptr);
 }
 
 void ChessGame::gameOver() {
-  // removeAll();
+  removeAll();
   turn() = WHITE;
   _playablePieces.clear();
   _chessBoard->reset();

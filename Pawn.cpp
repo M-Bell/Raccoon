@@ -3,7 +3,7 @@
 #include "ChessPieceSide.h"
 
 Pawn::Pawn(ChessPieceSide side, ChessGame &game, QGraphicsItem *parent)
-    : ChessPiece(side, game, parent), _currentGame(game) {
+    : ChessPiece(side, game, parent){
   setImage();
   firstMove = true;
 }
@@ -23,15 +23,16 @@ void Pawn::moves() {
   int col = this->_currentTile->col();
   if (this->side() == WHITE) {
     if (col > 0 && row > 0 &&
-        _currentGame._allTiles[row - 1][col - 1]->сhessPieceColor() == BLACK) {
+        _currentGame._allTiles[row - 1][col - 1]->chessPieceColor() == BLACK) {
       _location.append(_currentGame._allTiles[row - 1][col - 1]);
       tileSetting(_location.last());
     }
     if (col < 7 && row > 0 &&
-        _currentGame._allTiles[row - 1][col + 1]->сhessPieceColor() == BLACK) {
+        _currentGame._allTiles[row - 1][col + 1]->chessPieceColor() == BLACK) {
       _location.append(_currentGame._allTiles[row - 1][col + 1]);
       tileSetting(_location.last());
     }
+
     if (row > 0 && (!_currentGame._allTiles[row - 1][col]->hasChessPiece())) {
       _location.append(_currentGame._allTiles[row - 1][col]);
       tileSetting(_location.last());
@@ -43,13 +44,13 @@ void Pawn::moves() {
 
   } else {
     if (col > 0 && row < 7 &&
-        _currentGame._allTiles[row + 1][col - 1]->сhessPieceColor() ==
+        _currentGame._allTiles[row + 1][col - 1]->chessPieceColor() ==
             WHITE) { // left
       _location.append(_currentGame._allTiles[row + 1][col - 1]);
       tileSetting(_location.last());
     }
     if (col < 7 && row < 7 &&
-        _currentGame._allTiles[row + 1][col + 1]->сhessPieceColor() ==
+        _currentGame._allTiles[row + 1][col + 1]->chessPieceColor() ==
             WHITE) { // right
       _location.append(_currentGame._allTiles[row + 1][col + 1]);
       tileSetting(_location.last());

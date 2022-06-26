@@ -1,5 +1,6 @@
 #include "ChessBoardTile.h"
 #include "ChessGame.h"
+#include "King.h"
 
 ChessBoardTile::ChessBoardTile(ChessGame &game, QGraphicsItem *parent)
     : QGraphicsRectItem(parent), _currentGame(game) {
@@ -24,7 +25,7 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   // if selected
   if (_currentGame.pieceToMove) {
     // if same team
-    if (this->сhessPieceColor() == _currentGame.pieceToMove->side())
+    if (this->chessPieceColor() == _currentGame.pieceToMove->side())
       return;
     // removing the eaten piece
     QList<ChessBoardTile *> movLoc = _currentGame.pieceToMove->moveLocation();
@@ -86,35 +87,36 @@ void ChessBoardTile::checkForCheck() {
   QList<ChessPiece *> pList = _currentGame._playablePieces;
   for (size_t i = 0, n = pList.size(); i < n; i++) {
 
-    //    King *p = dynamic_cast<King *>(pList[i]);
-    //    if (p) {
-    //      continue;
-    //    }
+    King *p = dynamic_cast<King *>(pList[i]);
+    if (p) {
+      continue;
+    }
     pList[i]->moves();
     pList[i]->decolor();
     QList<ChessBoardTile *> bList = pList[i]->moveLocation();
-    //    for (size_t j = 0, n = bList.size(); j < n; j++) {
-    //            King *p = dynamic_cast<King *>(bList[j]->_currentPiece);
-    //            if (p) {
-    //              if (p->getSide() == pList[i]->side())
-    //                continue;
-    //            bList[j]->setColor(Qt::blue);
-    //            pList[i]->getCurrentTile()->setColor(Qt::darkRed);
-    //            if (!_currentGame._check->isVisible())
-    //              _currentGame._check->setVisible(true);
-    //            else {
-    //              bList[j]->setColor(bList[j]->getColor());
-    //              pList[i]->getCurrentTile()->setColor(
-    //                  pList[i]->getCurrentTile()->getColor());
-    //              _currentGame.gameOver();
-    //            }
-    //            c++;
-    //          }
-    //    }
+    for (size_t j = 0, n = bList.size(); j < n; j++) {
+      King *p = dynamic_cast<King *>(bList[j]->_currentPiece);
+      if (p) {
+        if (p->side() == pList[i]->side())
+          continue;
+        bList[j]->setColor(Qt::blue);
+        pList[i]->getCurrentTile()->setColor(Qt::darkRed);
+        if (!_currentGame._check->isVisible())
+          _currentGame._check->setVisible(true);
+        else {
+          bList[j]->setColor(bList[j]->getColor());
+          pList[i]->getCurrentTile()->setColor(
+              pList[i]->getCurrentTile()->getColor());
+          _currentGame.gameOver();
+        }
+        c++;
+      }
+    }
   }
   if (!c) {
     _currentGame._check->setVisible(false);
     for (size_t i = 0, n = pList.size(); i < n; i++)
-      pList[i]->getCurrentTile()->setColor(pList[i]->getCurrentTile()->getColor());
+      pList[i]->getCurrentTile()->setColor(
+          pList[i]->getCurrentTile()->getColor());
   }
 }

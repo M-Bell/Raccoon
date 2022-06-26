@@ -1,5 +1,6 @@
 #include "ChessPiece.h"
 #include "ChessGame.h"
+#include "King.h"
 
 ChessPiece::ChessPiece(ChessPieceSide side, ChessGame &game,
                        QGraphicsItem *parent)
@@ -46,8 +47,8 @@ void ChessPiece::decolor() {
 
 bool ChessPiece::tileSetting(ChessBoardTile *tile) {
   if (tile->hasChessPiece()) {
-    // King *q = dynamic_cast<King *>(location.last()->currentPiece);
-    if (false) {
+    King *q = dynamic_cast<King *>(_location.last()->currentPiece());
+    if (q) {
       tile->setColor(Qt::blue);
     } else
       tile->setColor(Qt::red);
