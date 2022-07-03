@@ -7,4 +7,8 @@ public:
   void setImage();
   void moves();
 
+private:
+  void moveForward(int x, int y, ChessPieceSide side);
+  void capture(int x, int y, ChessPieceSide side);
+  void captureEnPassant(int x, int y, ChessPieceSide side);
 };

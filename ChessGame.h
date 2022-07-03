@@ -32,6 +32,7 @@ public:
   ChessBoardTile *_allTiles[8][8];
   QGraphicsTextItem *_check;
   QList<ChessPiece *> _playablePieces;
+  ChessBoardTile *_enPassantTile = nullptr;
   void displayMainMenu();
 
   void gameOver();

@@ -1,12 +1,12 @@
 #include "ChessPiece.h"
 #include "ChessGame.h"
 #include "King.h"
+#include "Pawn.h"
 
 ChessPiece::ChessPiece(ChessPieceSide side, ChessGame &game,
                        QGraphicsItem *parent)
     : QGraphicsPixmapItem(parent), _currentGame(game), _side(side) {
   _isPlaced = true;
-  firstMove = true;
 }
 
 ChessBoardTile *ChessPiece::getCurrentTile() { return _currentTile; }
@@ -50,8 +50,13 @@ bool ChessPiece::tileSetting(ChessBoardTile *tile) {
     King *q = dynamic_cast<King *>(_location.last()->currentPiece());
     if (q) {
       tile->setColor(Qt::blue);
-    } else
+    } else if (_currentGame._enPassantTile == tile &&
+               typeid(*this) != typeid(Pawn(NONE, _currentGame))) {
+      _location.last()->setColor(Qt::darkRed);
+      return false;
+    } else {
       tile->setColor(Qt::red);
+    }
     return true;
   } else
     _location.last()->setColor(Qt::darkRed);

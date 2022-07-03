@@ -34,7 +34,7 @@ public:
   void setColor(QColor color);
   QColor &getColor();
   void placePiece(ChessPiece *piece);
-
+  void connectToPiece(ChessPiece *piece);
   inline ChessPieceSide chessPieceColor() const {
     return (_currentPiece == nullptr) ? NONE : _currentPiece->side();
   }

@@ -12,6 +12,9 @@ protected:
   ChessPieceSide _side;
   bool _isPlaced;
   QList<ChessBoardTile *> _location;
+  bool _hasMoved = false;
+  bool _firstMove = false;
+  int _moveLen = 0;
 
 public:
   ChessPiece(ChessPieceSide side, ChessGame &game, QGraphicsItem *parent = 0);
@@ -23,6 +26,10 @@ public:
 
   inline const ChessPieceSide &side() const { return _side; }
   inline ChessPieceSide &side() { return _side; }
+
+  inline bool &hasMoved() { return _hasMoved; }
+  inline bool &firstMove() { return _firstMove; }
+  inline int &moveLen() { return _moveLen; }
   virtual void setImage() = 0;
 
   bool getIsPlaced();
@@ -31,8 +38,6 @@ public:
   QList<ChessBoardTile *> moveLocation();
   virtual void moves() = 0;
   void decolor();
-
-  bool firstMove;
 
   bool tileSetting(ChessBoardTile *tile);
 };

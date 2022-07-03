@@ -1,6 +1,7 @@
 #include "ChessBoardTile.h"
 #include "ChessGame.h"
 #include "King.h"
+#include "Pawn.h"
 
 ChessBoardTile::ChessBoardTile(ChessGame &game, QGraphicsItem *parent)
     : QGraphicsRectItem(parent), _currentGame(game) {
@@ -17,7 +18,6 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   //  qDebug() << getChessPieceColor();
   // Deselecting counter part of ChessPiece
   if (_currentPiece == _currentGame.pieceToMove && _currentPiece) {
-
     _currentPiece->mousePressEvent(event);
     return;
   }
@@ -27,13 +27,22 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     // if same team
     if (this->chessPieceColor() == _currentGame.pieceToMove->side())
       return;
+    if(typeid(*_currentGame.pieceToMove)!=typeid(Pawn(NONE, _currentGame))){
+        if (_currentGame._enPassantTile != nullptr) {
+          _currentGame._enPassantTile->_currentPiece = nullptr;
+          _currentGame._enPassantTile = nullptr;
+        }
+    }
     // removing the eaten piece
     QList<ChessBoardTile *> movLoc = _currentGame.pieceToMove->moveLocation();
     // TO make sure the selected box is in move zone
     int check = 0;
-    for (size_t i = 0, n = movLoc.size(); i < n; i++) {
+    for (qsizetype i = 0; i < movLoc.size(); i++) {
       if (movLoc[i] == this) {
         check++;
+        _currentGame.pieceToMove->moveLen() =
+            abs(_currentGame.pieceToMove->getCurrentTile()->row() -
+                movLoc[i]->row());
       }
     }
     // if not prsent return
@@ -42,13 +51,31 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     // change the color back to normal
     _currentGame.pieceToMove->decolor();
     // make the first move false applicable for pawn only
-    _currentGame.pieceToMove->firstMove = false;
+    for (int i = 0; i < _currentGame._playablePieces.length(); i++) {
+      _currentGame._playablePieces[i]->firstMove() = false;
+    }
+    if (!_currentGame.pieceToMove->hasMoved()) {
+      _currentGame.pieceToMove->firstMove() = true;
+    } else {
+      _currentGame.pieceToMove->firstMove() = false;
+    }
+    _currentGame.pieceToMove->hasMoved() = true;
+
     // this is to eat or consume the enemy present inn the movable region
     if (this->hasChessPiece()) {
       this->_currentPiece->setIsPlaced(false);
+      if (this->_currentPiece->getCurrentTile() != this) {
+        this->_currentPiece->getCurrentTile()->_currentPiece = nullptr;
+      }
       this->_currentPiece->setCurrentTile(nullptr);
       _currentGame.placeInDeadPlace(this->_currentPiece);
     }
+
+    if (_currentGame._enPassantTile != nullptr) {
+      _currentGame._enPassantTile->_currentPiece = nullptr;
+      _currentGame._enPassantTile = nullptr;
+    }
+
     // changing the new stat and resetting the previous left region
 
     _currentGame.pieceToMove->getCurrentTile()->_currentPiece = nullptr;
@@ -79,6 +106,10 @@ void ChessBoardTile::placePiece(ChessPiece *piece) {
   piece->setPos(x() + 50 - piece->pixmap().width() / 2,
                 y() + 50 - piece->pixmap().width() / 2);
   piece->setCurrentTile(this);
+  _currentPiece = piece;
+}
+
+void ChessBoardTile::connectToPiece(ChessPiece *piece) {
   _currentPiece = piece;
 }
 
