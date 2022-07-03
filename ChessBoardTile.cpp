@@ -27,11 +27,11 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     // if same team
     if (this->chessPieceColor() == _currentGame.pieceToMove->side())
       return;
-    if(typeid(*_currentGame.pieceToMove)!=typeid(Pawn(NONE, _currentGame))){
-        if (_currentGame._enPassantTile != nullptr) {
-          _currentGame._enPassantTile->_currentPiece = nullptr;
-          _currentGame._enPassantTile = nullptr;
-        }
+    if (typeid(*_currentGame.pieceToMove) != typeid(Pawn(NONE, _currentGame))) {
+      if (_currentGame._enPassantTile != nullptr) {
+        _currentGame._enPassantTile->_currentPiece = nullptr;
+        _currentGame._enPassantTile = nullptr;
+      }
     }
     // removing the eaten piece
     QList<ChessBoardTile *> movLoc = _currentGame.pieceToMove->moveLocation();
@@ -41,8 +41,12 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
       if (movLoc[i] == this) {
         check++;
         _currentGame.pieceToMove->moveLen() =
-            abs(_currentGame.pieceToMove->getCurrentTile()->row() -
-                movLoc[i]->row());
+            sqrt(pow(_currentGame.pieceToMove->getCurrentTile()->row() -
+                         movLoc[i]->row(),
+                     2) +
+                 pow(_currentGame.pieceToMove->getCurrentTile()->col() -
+                         movLoc[i]->col(),
+                     2));
       }
     }
     // if not prsent return
@@ -82,6 +86,20 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     _currentGame.pieceToMove->getCurrentTile()->setColor(
         _currentGame.pieceToMove->getCurrentTile()->getColor());
     placePiece(_currentGame.pieceToMove);
+
+    if (typeid(*_currentGame.pieceToMove) == typeid(King(NONE, _currentGame)) &&
+        _currentGame.pieceToMove->moveLen() > 1) {
+      int row = _currentGame.pieceToMove->getCurrentTile()->row();
+      if (this->col() == 2) {
+        _currentGame._allTiles[row][3]->placePiece(
+            _currentGame._allTiles[row][0]->currentPiece());
+        _currentGame._allTiles[row][0]->_currentPiece = nullptr;
+      } else if (this->col() == 6) {
+        _currentGame._allTiles[row][5]->placePiece(
+            _currentGame._allTiles[row][7]->currentPiece());
+        _currentGame._allTiles[row][7]->_currentPiece = nullptr;
+      }
+    }
 
     _currentGame.pieceToMove = nullptr;
     // changing turn
