@@ -15,34 +15,65 @@ void King::setImage() {
     setPixmap(QPixmap(":/res/images/chess_piece_king.png"));
 }
 void King::findUnSafeLocation() {
+  int direction = 0;
+  if (_side == WHITE) {
+    direction = 1;
+  } else {
+    direction = -1;
+  }
+  //_currentTile->connectToPiece(nullptr);
+  QList<ChessBoardTile *> blockedTiles;
   QList<ChessPiece *> pList = _currentGame._playablePieces;
   for (qsizetype i = 0; i < pList.size(); i++) {
-
     if (pList[i]->side() != this->side()) {
-      QList<ChessBoardTile *> bList = pList[i]->moveLocation();
-
-      for (qsizetype j = 0; j < bList.size(); j++) {
-        Pawn *c = dynamic_cast<Pawn *>(pList[i]);
-        if (c)
-          continue;
+      Pawn *c = dynamic_cast<Pawn *>(pList[i]);
+      if (c) {
+        int pawnRow = c->getCurrentTile()->row();
+        int pawnCol = c->getCurrentTile()->col();
         for (size_t k = 0, n = _location.size(); k < n; k++) {
-          if (bList[j] == _location[k]) {
-            _location[k]->setColor(Qt::blue);
+          if (pawnRow >= 7 || pawnRow <= 0)
+            break;
+          if (pawnCol + direction > 0 &&
+              _currentGame._allTiles[pawnRow + direction]
+                                    [pawnCol + direction] == _location[k]) {
+            _location[k]->setColor(_location[k]->getColor());
+            blockedTiles.append(_location[k]);
+            break;
+          }
+          if (pawnCol - direction > 0 &&
+              _currentGame._allTiles[pawnRow + direction]
+                                    [pawnCol - direction] == _location[k]) {
+            _location[k]->setColor(_location[k]->getColor());
+            blockedTiles.append(_location[k]);
           }
         }
+        continue;
+      }
+      QList<ChessBoardTile *> bList = pList[i]->moveLocation();
+      for (qsizetype j = 0; j < bList.size(); j++) {
+        for (size_t k = 0, n = _location.size(); k < n; k++) {
+          if (bList[j] == _location[k]) {
+            _location[k]->setColor(_location[k]->getColor());
+            blockedTiles.append(_location[k]);
+          }
+        }
+        _currentTile->connectToPiece(this);
       }
     }
+  }
+  for (qsizetype i = 0; i < blockedTiles.size(); ++i) {
+    _location.removeOne(blockedTiles[i]);
   }
 }
 void King::moves() {
   _location.clear();
   int row = this->getCurrentTile()->row();
   int col = this->getCurrentTile()->col();
-  ChessPieceSide team = this->side();
+  ChessPieceSide currentSide = this->side();
 
   if (col > 0 && row > 0 &&
-      !(_currentGame._allTiles[row - 1][col - 1]->chessPieceColor() ==
-        team)) { // up left
+      _currentGame._allTiles[row - 1][col - 1]->chessPieceColor() !=
+          currentSide) { // up left
     _location.append(_currentGame._allTiles[row - 1][col - 1]);
     _currentGame._allTiles[row - 1][col - 1]->setColor(Qt::darkRed);
     if (_location.last()->hasChessPiece()) {
@@ -51,7 +82,7 @@ void King::moves() {
   }
   if (col < 7 && row > 0 &&
       !(_currentGame._allTiles[row - 1][col + 1]->chessPieceColor() ==
-        team)) { // up right
+        currentSide)) { // up right
     _location.append(_currentGame._allTiles[row - 1][col + 1]);
     _currentGame._allTiles[row - 1][col + 1]->setColor(Qt::darkRed);
     if (_location.last()->hasChessPiece()) {
@@ -59,7 +90,7 @@ void King::moves() {
     }
   }
   if (row > 0 && !(_currentGame._allTiles[row - 1][col]->chessPieceColor() ==
-                   team)) { // up
+                   currentSide)) { // up
     _location.append(_currentGame._allTiles[row - 1][col]);
     _currentGame._allTiles[row - 1][col]->setColor(Qt::darkRed);
     if (_location.last()->hasChessPiece()) {
@@ -67,7 +98,7 @@ void King::moves() {
     }
   }
   if (row < 7 && !(_currentGame._allTiles[row + 1][col]->chessPieceColor() ==
-                   team)) { // down
+                   currentSide)) { // down
     _location.append(_currentGame._allTiles[row + 1][col]);
     _currentGame._allTiles[row + 1][col]->setColor(Qt::darkRed);
     if (_location.last()->hasChessPiece()) {
@@ -75,7 +106,7 @@ void King::moves() {
     }
   }
   if (col > 0 && !(_currentGame._allTiles[row][col - 1]->chessPieceColor() ==
-                   team)) { // left
+                   currentSide)) { // left
     _location.append(_currentGame._allTiles[row][col - 1]);
     _currentGame._allTiles[row][col - 1]->setColor(Qt::darkRed);
     if (_location.last()->hasChessPiece()) {
@@ -83,7 +114,7 @@ void King::moves() {
     }
   }
   if (col < 7 && !(_currentGame._allTiles[row][col + 1]->chessPieceColor() ==
-                   team)) { // right
+                   currentSide)) { // right
     _location.append(_currentGame._allTiles[row][col + 1]);
     _currentGame._allTiles[row][col + 1]->setColor(Qt::darkRed);
     if (_location.last()->hasChessPiece()) {
@@ -92,7 +123,7 @@ void King::moves() {
   }
   if (col > 0 && row < 7 &&
       !(_currentGame._allTiles[row + 1][col - 1]->chessPieceColor() ==
-        team)) { // down left
+        currentSide)) { // down left
     _location.append(_currentGame._allTiles[row + 1][col - 1]);
     _currentGame._allTiles[row + 1][col - 1]->setColor(Qt::darkRed);
     if (_location.last()->hasChessPiece()) {
@@ -101,7 +132,7 @@ void King::moves() {
   }
   if (col < 7 && row < 7 &&
       !(_currentGame._allTiles[row + 1][col + 1]->chessPieceColor() ==
-        team)) { // down right
+        currentSide)) { // down right
     _location.append(_currentGame._allTiles[row + 1][col + 1]);
     _currentGame._allTiles[row + 1][col + 1]->setColor(Qt::darkRed);
     if (_location.last()->hasChessPiece()) {
@@ -126,21 +157,21 @@ void King::moves() {
         _currentGame._allTiles[7][2]->setColor(Qt::darkRed);
       }
     } else {
-        if (_currentGame._allTiles[0][7]->currentPiece() != nullptr &&
-            !_currentGame._allTiles[0][7]->currentPiece()->hasMoved() &&
-            _currentGame._allTiles[0][6]->currentPiece() == nullptr &&
-            _currentGame._allTiles[0][5]->currentPiece() == nullptr) {
-          _location.append(_currentGame._allTiles[0][6]);
-          _currentGame._allTiles[0][6]->setColor(Qt::darkRed);
-        }
-        if (_currentGame._allTiles[0][0]->currentPiece() != nullptr &&
-            !_currentGame._allTiles[0][0]->currentPiece()->hasMoved() &&
-            _currentGame._allTiles[0][1]->currentPiece() == nullptr &&
-            _currentGame._allTiles[0][2]->currentPiece() == nullptr &&
-            _currentGame._allTiles[0][3]->currentPiece() == nullptr) {
-          _location.append(_currentGame._allTiles[0][2]);
-          _currentGame._allTiles[0][2]->setColor(Qt::darkRed);
-        }
+      if (_currentGame._allTiles[0][7]->currentPiece() != nullptr &&
+          !_currentGame._allTiles[0][7]->currentPiece()->hasMoved() &&
+          _currentGame._allTiles[0][6]->currentPiece() == nullptr &&
+          _currentGame._allTiles[0][5]->currentPiece() == nullptr) {
+        _location.append(_currentGame._allTiles[0][6]);
+        _currentGame._allTiles[0][6]->setColor(Qt::darkRed);
+      }
+      if (_currentGame._allTiles[0][0]->currentPiece() != nullptr &&
+          !_currentGame._allTiles[0][0]->currentPiece()->hasMoved() &&
+          _currentGame._allTiles[0][1]->currentPiece() == nullptr &&
+          _currentGame._allTiles[0][2]->currentPiece() == nullptr &&
+          _currentGame._allTiles[0][3]->currentPiece() == nullptr) {
+        _location.append(_currentGame._allTiles[0][2]);
+        _currentGame._allTiles[0][2]->setColor(Qt::darkRed);
+      }
     }
   }
 

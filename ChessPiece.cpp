@@ -50,15 +50,18 @@ bool ChessPiece::tileSetting(ChessBoardTile *tile) {
     King *q = dynamic_cast<King *>(_location.last()->currentPiece());
     if (q) {
       tile->setColor(Qt::blue);
+      _kingFound = true;
+      return false;
     } else if (_currentGame._enPassantTile == tile &&
                typeid(*this) != typeid(Pawn(NONE, _currentGame))) {
       _location.last()->setColor(Qt::darkRed);
       return false;
-    } else {
+    } else if (!_kingFound) {
       tile->setColor(Qt::red);
     }
+    _kingFound = false;
     return true;
-  } else
+  } else if (!_kingFound)
     _location.last()->setColor(Qt::darkRed);
   return false;
 }

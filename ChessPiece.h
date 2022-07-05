@@ -7,6 +7,7 @@ class ChessGame;
 
 class ChessPiece : public QGraphicsPixmapItem {
 protected:
+  bool _kingFound = false;
   ChessBoardTile *_currentTile;
   ChessGame &_currentGame;
   ChessPieceSide _side;

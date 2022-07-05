@@ -50,12 +50,16 @@ void Pawn::captureEnPassant(int row, int col, ChessPieceSide oppositeSide) {
   } else {
     return;
   }
+  Pawn *c =
+      dynamic_cast<Pawn *>(_currentGame._allTiles[row][col]->currentPiece());
+  if (!c)
+    return;
   if (_currentGame._allTiles[row][col]->chessPieceColor() == oppositeSide &&
       _currentGame._allTiles[row][col]->currentPiece()->moveLen() > 1 &&
       _currentGame._allTiles[row][col]->currentPiece()->firstMove()) {
     _currentGame._allTiles[row + direction][col]->connectToPiece(
         _currentGame._allTiles[row][col]->currentPiece());
-    _currentGame._enPassantTile = _currentGame._allTiles[row+ direction][col];
+    _currentGame._enPassantTile = _currentGame._allTiles[row + direction][col];
     _location.append(_currentGame._allTiles[row + direction][col]);
     tileSetting(_location.last());
   }
