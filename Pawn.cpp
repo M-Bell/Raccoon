@@ -23,21 +23,19 @@ void Pawn::moveForward(int row, int col, ChessPieceSide side) {
   } else {
     return;
   }
-  if (!_currentGame._allTiles[row + direction][col]->hasChessPiece()) {
-    _location.append(_currentGame._allTiles[row + direction][col]);
-    tileSetting(_location.last());
+  if (!_currentGame._allTiles[row + direction][col]->hasChessPiece() &&
+      kingIsSafe(_currentGame._allTiles[row + direction][col])) {
+
     if (!hasMoved() &&
-        !_currentGame._allTiles[row + direction * 2][col]->hasChessPiece()) {
-      _location.append(_currentGame._allTiles[row + direction * 2][col]);
-      tileSetting(_location.last());
+        !_currentGame._allTiles[row + direction * 2][col]->hasChessPiece() &&
+        kingIsSafe(_currentGame._allTiles[row + direction * 2][col])) {
     }
   }
 }
 
 void Pawn::capture(int row, int col, ChessPieceSide oppositeSide) {
-  if (_currentGame._allTiles[row][col]->chessPieceColor() == oppositeSide) {
-    _location.append(_currentGame._allTiles[row][col]);
-    tileSetting(_location.last());
+  if (_currentGame._allTiles[row][col]->chessPieceColor() == oppositeSide &&
+      kingIsSafe(_currentGame._allTiles[row][col])) {
   }
 }
 
@@ -56,12 +54,11 @@ void Pawn::captureEnPassant(int row, int col, ChessPieceSide oppositeSide) {
     return;
   if (_currentGame._allTiles[row][col]->chessPieceColor() == oppositeSide &&
       _currentGame._allTiles[row][col]->currentPiece()->moveLen() > 1 &&
-      _currentGame._allTiles[row][col]->currentPiece()->firstMove()) {
+      _currentGame._allTiles[row][col]->currentPiece()->firstMove() &&
+      kingIsSafe(_currentGame._allTiles[row + direction][col])) {
     _currentGame._allTiles[row + direction][col]->connectToPiece(
         _currentGame._allTiles[row][col]->currentPiece());
     _currentGame._enPassantTile = _currentGame._allTiles[row + direction][col];
-    _location.append(_currentGame._allTiles[row + direction][col]);
-    tileSetting(_location.last());
   }
 }
 
@@ -94,6 +91,11 @@ void Pawn::moves() {
         capture(row + 1, col + 1, WHITE);
         captureEnPassant(row, col + 1, WHITE);
       }
+    }
+  }
+  if (_currentGame.pieceToMove == this) {
+    for (qsizetype i = 0; i < _location.size(); i++) {
+      tileSetting(_location[i]);
     }
   }
 }
