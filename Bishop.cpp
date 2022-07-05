@@ -26,7 +26,9 @@ void Bishop::moves() {
       break;
 
     } else {
-      _location.append(_currentGame._allTiles[i][j]);
+      kingIsSafe(_currentGame._allTiles[i][j]);
+      if (_location.size()<=0)
+        continue;
       if (tileSetting(_location.last())) {
         break;
       }
@@ -40,7 +42,9 @@ void Bishop::moves() {
       break;
 
     } else {
-      _location.append(_currentGame._allTiles[i][j]);
+      kingIsSafe(_currentGame._allTiles[i][j]);
+      if (_location.size()<=0)
+        continue;
       if (tileSetting(_location.last())) {
         break;
       }
@@ -54,7 +58,9 @@ void Bishop::moves() {
       break;
 
     } else {
-      _location.append(_currentGame._allTiles[i][j]);
+      kingIsSafe(_currentGame._allTiles[i][j]);
+      if (_location.size()<=0)
+        continue;
       if (tileSetting(_location.last())) {
         break;
       }
@@ -68,10 +74,17 @@ void Bishop::moves() {
       break;
 
     } else {
-      _location.append(_currentGame._allTiles[i][j]);
+      kingIsSafe(_currentGame._allTiles[i][j]);
+      if (_location.size()<=0)
+        continue;
       if (tileSetting(_location.last())) {
         break;
       }
     }
   }
+
+    for (qsizetype i = 0; i < _location.size(); i++) {
+      tileSetting(_location[i]);
+    }
+
 }

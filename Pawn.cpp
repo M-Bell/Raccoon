@@ -93,9 +93,8 @@ void Pawn::moves() {
       }
     }
   }
-  if (_currentGame.pieceToMove == this) {
-    for (qsizetype i = 0; i < _location.size(); i++) {
-      tileSetting(_location[i]);
-    }
+
+  for (qsizetype i = 0; i < _location.size(); i++) {
+    tileSetting(_location[i]);
   }
 }

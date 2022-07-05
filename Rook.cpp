@@ -24,9 +24,12 @@ void Rook::moves() {
     if (_currentGame._allTiles[i][j]->chessPieceColor() == currentSide) {
       break;
     } else {
-      _location.append(_currentGame._allTiles[i][j]);
-      if (tileSetting(_location.last()))
-        break;
+        kingIsSafe(_currentGame._allTiles[i][j]);
+        if (_location.size()<=0)
+          continue;
+        if (tileSetting(_location.last())) {
+          break;
+        }
     }
   }
 
@@ -36,10 +39,12 @@ void Rook::moves() {
     if (_currentGame._allTiles[i][j]->chessPieceColor() == currentSide) {
       break;
     } else {
-      _location.append(_currentGame._allTiles[i][j]);
-      if (tileSetting(_location.last())) {
-        break;
-      }
+        kingIsSafe(_currentGame._allTiles[i][j]);
+        if (_location.size()<=0)
+          continue;
+        if (tileSetting(_location.last())) {
+          break;
+        }
     }
   }
 
@@ -49,9 +54,12 @@ void Rook::moves() {
     if (_currentGame._allTiles[i][j]->chessPieceColor() == currentSide) {
       break;
     } else {
-      _location.append(_currentGame._allTiles[i][j]);
-      if (tileSetting(_location.last()))
-        break;
+        kingIsSafe(_currentGame._allTiles[i][j]);
+        if (_location.size()<=0)
+          continue;
+        if (tileSetting(_location.last())) {
+          break;
+        }
     }
   }
   // For Right
@@ -60,9 +68,17 @@ void Rook::moves() {
     if (_currentGame._allTiles[i][j]->chessPieceColor() == currentSide) {
       break;
     } else {
-      _location.append(_currentGame._allTiles[i][j]);
-      if (tileSetting(_location.last()))
-        break;
+        kingIsSafe(_currentGame._allTiles[i][j]);
+        if (_location.size()<=0)
+          continue;
+        if (tileSetting(_location.last())) {
+          break;
+        }
     }
   }
+
+    for (qsizetype i = 0; i < _location.size(); i++) {
+      tileSetting(_location[i]);
+    }
+
 }

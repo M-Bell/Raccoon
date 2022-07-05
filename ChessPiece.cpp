@@ -48,12 +48,16 @@ void ChessPiece::decolor() {
 }
 
 bool ChessPiece::kingIsSafe(ChessBoardTile *tile) {
-  if (_currentGame.pieceToMove != this)
+  if (_currentGame.pieceToMove != this) {
+    _location.append(tile);
     return true;
-  ChessPiece* beatenPiece = tile->currentPiece();
+  }
+
+  ChessPiece *beatenPiece = tile->currentPiece();
   QList<ChessPiece *> pList = _currentGame._playablePieces;
   for (qsizetype i = 0; i < pList.size(); i++) {
-    if (pList[i] != this && pList[i]->side() != this->side()) {
+    if (pList[i] != beatenPiece && pList[i] != this &&
+        pList[i]->side() != this->side()) {
       this->getCurrentTile()->connectToPiece(nullptr);
       tile->connectToPiece(this);
       pList[i]->moves();

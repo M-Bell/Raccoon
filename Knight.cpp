@@ -88,9 +88,9 @@ void Knight::moves() {
   if (i <= 7 && j <= 7) {
     move(i, j);
   }
-  if (_currentGame.pieceToMove == this) {
+
     for (qsizetype i = 0; i < _location.size(); i++) {
       tileSetting(_location[i]);
     }
-  }
+
 }
