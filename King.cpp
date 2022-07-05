@@ -21,7 +21,6 @@ void King::findUnSafeLocation() {
   } else {
     direction = -1;
   }
-  //_currentTile->connectToPiece(nullptr);
   QList<ChessBoardTile *> blockedTiles;
   QList<ChessPiece *> pList = _currentGame._playablePieces;
   for (qsizetype i = 0; i < pList.size(); i++) {
@@ -57,7 +56,37 @@ void King::findUnSafeLocation() {
             blockedTiles.append(_location[k]);
           }
         }
-        _currentTile->connectToPiece(this);
+      }
+      for (qsizetype i = 0; i < blockedTiles.size(); ++i) {
+        _location.removeOne(blockedTiles[i]);
+      }
+      if (_canCastle) {
+        if (_location.contains(_currentGame._allTiles[0][2]) &&
+            (!_location.contains(_currentGame._allTiles[0][3]) ||
+             bList.contains(_currentGame._allTiles[0][1]))) {
+          _currentGame._allTiles[0][2]->setColor(
+              _currentGame._allTiles[0][2]->getColor());
+          blockedTiles.append(_currentGame._allTiles[0][2]);
+        }
+        if (_location.contains(_currentGame._allTiles[0][6]) &&
+            !_location.contains(_currentGame._allTiles[0][5])) {
+          _currentGame._allTiles[0][6]->setColor(
+              _currentGame._allTiles[0][6]->getColor());
+          blockedTiles.append(_currentGame._allTiles[0][6]);
+        }
+        if (_location.contains(_currentGame._allTiles[7][2]) &&
+            (!_location.contains(_currentGame._allTiles[7][3]) ||
+             bList.contains(_currentGame._allTiles[7][1]))) {
+          _currentGame._allTiles[7][2]->setColor(
+              _currentGame._allTiles[7][2]->getColor());
+          blockedTiles.append(_currentGame._allTiles[7][2]);
+        }
+        if (_location.contains(_currentGame._allTiles[7][6]) &&
+            !_location.contains(_currentGame._allTiles[7][5])) {
+          _currentGame._allTiles[7][6]->setColor(
+              _currentGame._allTiles[7][6]->getColor());
+          blockedTiles.append(_currentGame._allTiles[7][6]);
+        }
       }
     }
   }
@@ -147,6 +176,7 @@ void King::moves() {
           _currentGame._allTiles[7][5]->currentPiece() == nullptr) {
         _location.append(_currentGame._allTiles[7][6]);
         _currentGame._allTiles[7][6]->setColor(Qt::darkRed);
+        _canCastle = true;
       }
       if (_currentGame._allTiles[7][0]->currentPiece() != nullptr &&
           !_currentGame._allTiles[7][0]->currentPiece()->hasMoved() &&
@@ -155,6 +185,7 @@ void King::moves() {
           _currentGame._allTiles[7][3]->currentPiece() == nullptr) {
         _location.append(_currentGame._allTiles[7][2]);
         _currentGame._allTiles[7][2]->setColor(Qt::darkRed);
+        _canCastle = true;
       }
     } else {
       if (_currentGame._allTiles[0][7]->currentPiece() != nullptr &&
@@ -163,6 +194,7 @@ void King::moves() {
           _currentGame._allTiles[0][5]->currentPiece() == nullptr) {
         _location.append(_currentGame._allTiles[0][6]);
         _currentGame._allTiles[0][6]->setColor(Qt::darkRed);
+        _canCastle = true;
       }
       if (_currentGame._allTiles[0][0]->currentPiece() != nullptr &&
           !_currentGame._allTiles[0][0]->currentPiece()->hasMoved() &&
@@ -171,9 +203,11 @@ void King::moves() {
           _currentGame._allTiles[0][3]->currentPiece() == nullptr) {
         _location.append(_currentGame._allTiles[0][2]);
         _currentGame._allTiles[0][2]->setColor(Qt::darkRed);
+        _canCastle = true;
       }
     }
   }
 
   findUnSafeLocation();
+  _canCastle = false;
 }
