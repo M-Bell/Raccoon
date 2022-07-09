@@ -174,13 +174,14 @@ void ChessBoardTile::validateCheck() {
           bList[j]->setColor(bList[j]->getColor());
           pList[i]->getCurrentTile()->setColor(
               pList[i]->getCurrentTile()->getColor());
-          _currentGame.gameOver();
+         // _currentGame.gameOver();
         }
         c++;
       }
     }
   }
-  if (!c && hasCheckmate()) {
+  bool cantMove = hasCheckmate();
+  if (!c && cantMove) {
     _currentGame._check->setVisible(false);
     for (size_t i = 0, n = pList.size(); i < n; i++) {
       pList[i]->getCurrentTile()->setColor(
@@ -189,7 +190,7 @@ void ChessBoardTile::validateCheck() {
     _currentGame.gameRunning() = false;
     _currentGame.showMessage("Stalemate: DRAW");
 
-  } else if (c && hasCheckmate()) {
+  } else if (c && cantMove) {
     _currentGame.gameRunning() = false;
     if (_currentGame.turn() == BLACK) {
       _currentGame.showMessage("Checkmate: WHITE won");
