@@ -3,15 +3,19 @@
 #include "King.h"
 #include <QDebug>
 #include <QPixmap>
+
+int ChessGame::SCENE_WIDTH = 800;
+int ChessGame::SCENE_HEIGHT = 510;
+
 ChessGame::ChessGame(QWidget *parent)
     : QGraphicsView(parent), _gameRunning(true) {
 
   // Making the Scene
   _gameScene = new QGraphicsScene();
-  _gameScene->setSceneRect(0, 0, 1400, 900);
+  _gameScene->setSceneRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
 
   // Making the view
-  setFixedSize(1400, 900);
+  setFixedSize(SCENE_WIDTH, SCENE_HEIGHT);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   setScene(_gameScene);
@@ -23,10 +27,10 @@ ChessGame::ChessGame(QWidget *parent)
 
   // display turn
   _turnDisplay = new QGraphicsTextItem();
-  _turnDisplay->setPos(width() / 2 - 100, 10);
+  _turnDisplay->setPos(width() / 2 - SCENE_HEIGHT * 0.1, SCENE_HEIGHT * 0.005);
   _turnDisplay->setZValue(1);
   _turnDisplay->setDefaultTextColor(Qt::white);
-  _turnDisplay->setFont(QFont("", 18));
+  _turnDisplay->setFont(QFont("", SCENE_HEIGHT * 0.025));
   _turnDisplay->setPlainText("Turn : WHITE");
 
   // display Check
@@ -43,33 +47,33 @@ ChessGame::ChessGame(QWidget *parent)
 void ChessGame::drawChessBoard() {
   _chessBoard = new ChessBoard(*this);
   drawDeadHolder(0, 0, Qt::lightGray);
-  drawDeadHolder(1100, 0, Qt::lightGray);
-  _chessBoard->drawBoard(width() / 2 - 400, 50);
+  drawDeadHolder(SCENE_WIDTH - SCENE_WIDTH * 0.2, 0, Qt::lightGray);
+  _chessBoard->drawBoard(SCENE_WIDTH * 0.2, SCENE_HEIGHT * 0.05);
 }
 
 void ChessGame::displayDeadWhite() {
-  int SHIFT = 50;
+  int SHIFT = SCENE_WIDTH * 0.065;
   int j = 0;
   int k = 0;
   for (size_t i = 0, n = _whiteDead.size(); i < n; i++) {
-    if (j == 4) {
+    if (j == 3) {
       k++;
       j = 0;
     }
-    _whiteDead[i]->setPos(40 + SHIFT * j++, 100 + SHIFT * 2 * k);
+    _whiteDead[i]->setPos(10 + SHIFT * j++, 45 + SHIFT * k);
   }
 }
 
 void ChessGame::displayDeadBlack() {
-  int SHIFT = 50;
+  int SHIFT = SCENE_WIDTH * 0.065;
   int j = 0;
   int k = 0;
   for (size_t i = 0, n = _blackDead.size(); i < n; i++) {
-    if (j == 4) {
+    if (j == 3) {
       k++;
       j = 0;
     }
-    _blackDead[i]->setPos(1140 + SHIFT * j++, 100 + SHIFT * 2 * k);
+    _blackDead[i]->setPos(SCENE_WIDTH * 0.8 + 10 + SHIFT * j++, 45 + SHIFT * k);
   }
 }
 
@@ -111,10 +115,7 @@ void ChessGame::changeTurn() {
   }
 }
 
-void ChessGame::showMessage(char* msg) {
-    _turnDisplay->setPlainText(msg);
-}
-
+void ChessGame::showMessage(char *msg) { _turnDisplay->setPlainText(msg); }
 
 void ChessGame::start() {
   for (size_t i = 0, n = _listG.size(); i < n; i++)
@@ -122,7 +123,8 @@ void ChessGame::start() {
 
   addToScene(_turnDisplay);
   QGraphicsTextItem *whitePiece = new QGraphicsTextItem();
-  whitePiece->setPos(70, 10);
+  whitePiece->setPos(SCENE_WIDTH * 0.1 - SCENE_WIDTH * 0.085,
+                     SCENE_HEIGHT * 0.02);
   whitePiece->setZValue(1);
   whitePiece->setDefaultTextColor(Qt::white);
   whitePiece->setFont(QFont("", 14));
@@ -130,7 +132,7 @@ void ChessGame::start() {
   addToScene(whitePiece);
   QGraphicsTextItem *blackPiece = new QGraphicsTextItem();
 
-  blackPiece->setPos(1170, 10);
+  blackPiece->setPos(SCENE_WIDTH * 0.9 - SCENE_WIDTH * 0.085, 10);
   blackPiece->setZValue(1);
   blackPiece->setDefaultTextColor(Qt::black);
   blackPiece->setFont(QFont("", 14));
@@ -141,7 +143,7 @@ void ChessGame::start() {
 }
 
 void ChessGame::drawDeadHolder(int x, int y, QColor color) {
-  _deadHolder = new QGraphicsRectItem(x, y, 300, 900);
+  _deadHolder = new QGraphicsRectItem(x, y, SCENE_WIDTH * 0.2, SCENE_HEIGHT);
   QBrush brush;
   brush.setStyle(Qt::SolidPattern);
   brush.setColor(color);

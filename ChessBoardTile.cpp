@@ -123,9 +123,9 @@ void ChessBoardTile::setColor(QColor color) {
 QColor &ChessBoardTile::getColor() { return _color; }
 
 void ChessBoardTile::placePiece(ChessPiece *piece) {
-
-  piece->setPos(x() + 50 - piece->pixmap().width() / 2,
-                y() + 50 - piece->pixmap().width() / 2);
+  int shift = _currentGame.width() * 0.075;
+  piece->setPos(x() + shift/2 - piece->pixmap().width() / 2,
+                y() + shift/2 - piece->pixmap().width() / 2);
   piece->setCurrentTile(this);
   _currentPiece = piece;
 }
@@ -190,11 +190,10 @@ void ChessBoardTile::validateCheck() {
 
   } else if (c && hasCheckmate()) {
     _currentGame.gameRunning() = false;
-    if(_currentGame.turn()==BLACK){
-        _currentGame.showMessage("Checkmate: WHITE won");
+    if (_currentGame.turn() == BLACK) {
+      _currentGame.showMessage("Checkmate: WHITE won");
     } else {
-        _currentGame.showMessage("Checkmate: BLACK won");
+      _currentGame.showMessage("Checkmate: BLACK won");
     }
-
   }
 }

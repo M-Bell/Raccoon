@@ -30,8 +30,7 @@ public:
   inline bool &gameRunning() { return _gameRunning; }
 
   void changeTurn();
-  void showMessage(char*);
-
+  void showMessage(char *);
 
   ChessBoardTile *_allTiles[8][8];
   QGraphicsTextItem *_check;
@@ -41,6 +40,9 @@ public:
 
   void gameOver();
   void removeAll();
+
+  inline int width() const { return SCENE_WIDTH; }
+  inline int height() const { return SCENE_HEIGHT; }
 public slots:
   void start();
 
@@ -54,4 +56,7 @@ private:
   QList<QGraphicsItem *> _listG;
   QGraphicsTextItem *_turnDisplay;
   bool _gameRunning;
+
+  static int SCENE_WIDTH;
+  static int SCENE_HEIGHT;
 };

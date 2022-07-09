@@ -11,7 +11,7 @@
 ChessBoard::ChessBoard(ChessGame &game) : _currentGame(game) { initPieces(); }
 
 void ChessBoard::drawBoard(const int x, const int y) {
-  int shift = 100;
+  int shift = _currentGame.width() * 0.075;
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
       ChessBoardTile *tile = new ChessBoardTile(_currentGame);
