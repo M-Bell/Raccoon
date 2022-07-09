@@ -151,6 +151,7 @@ bool ChessBoardTile::hasCheckmate() {
 }
 void ChessBoardTile::validateCheck() {
   int c = 0;
+  ChessPiece *kingPiece;
   QList<ChessPiece *> pList = _currentGame._playablePieces;
   for (size_t i = 0, n = pList.size(); i < n; i++) {
 
@@ -164,6 +165,9 @@ void ChessBoardTile::validateCheck() {
     for (size_t j = 0, n = bList.size(); j < n; j++) {
       King *p = dynamic_cast<King *>(bList[j]->_currentPiece);
       if (p) {
+        if (p->side() == _currentGame.turn()) {
+          kingPiece = p;
+        }
         if (p->side() == pList[i]->side())
           continue;
         bList[j]->setColor(Qt::blue);
@@ -174,7 +178,7 @@ void ChessBoardTile::validateCheck() {
           bList[j]->setColor(bList[j]->getColor());
           pList[i]->getCurrentTile()->setColor(
               pList[i]->getCurrentTile()->getColor());
-         // _currentGame.gameOver();
+          // _currentGame.gameOver();
         }
         c++;
       }
@@ -182,6 +186,7 @@ void ChessBoardTile::validateCheck() {
   }
   bool cantMove = hasCheckmate();
   if (!c && cantMove) {
+    kingPiece->getCurrentTile()->setColor(Qt::blue);
     _currentGame._check->setVisible(false);
     for (size_t i = 0, n = pList.size(); i < n; i++) {
       pList[i]->getCurrentTile()->setColor(
@@ -197,5 +202,7 @@ void ChessBoardTile::validateCheck() {
     } else {
       _currentGame.showMessage("Checkmate: BLACK won");
     }
+  } else if (c) {
+    kingPiece->getCurrentTile()->setColor(Qt::blue);
   }
 }
