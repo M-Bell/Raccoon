@@ -21,12 +21,12 @@ void ChessBoard::drawBoard(const int x, const int y) {
       tile->setPos(x + shift * j, y + shift * i);
       if ((i + j) % 2 == 0) {
 
-        tile->setColor(Qt::lightGray);
-        tile->getColor() = Qt::lightGray;
+        tile->setColor({255, 206, 158});
+        tile->getColor() = {255, 206, 158};
       } else {
 
-        tile->setColor(Qt::darkGray);
-        tile->getColor() = Qt::darkGray;
+        tile->setColor({209, 139, 71});
+        tile->getColor() = {209, 139, 71};
       }
       _currentGame.addToScene(tile);
     }

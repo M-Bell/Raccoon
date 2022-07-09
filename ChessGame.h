@@ -4,11 +4,11 @@
 #include "ChessPiece.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
-class ChessGame : public QGraphicsView {
+class ChessGame : public QGraphicsScene {
   Q_OBJECT
 public:
   // Constructors
-  ChessGame(QWidget *parent = 0);
+  ChessGame();
 
   // public Methods
   void drawDeadHolder(int x, int y, QColor color);
@@ -47,7 +47,6 @@ public slots:
   void start();
 
 private:
-  QGraphicsScene *_gameScene;
   QList<ChessPiece *> _whiteDead;
   QList<ChessPiece *> _blackDead;
   QGraphicsRectItem *_deadHolder;

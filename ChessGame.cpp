@@ -4,21 +4,14 @@
 #include <QDebug>
 #include <QPixmap>
 
-int ChessGame::SCENE_WIDTH = 800;
-int ChessGame::SCENE_HEIGHT = 510;
+int ChessGame::SCENE_WIDTH = 900;
+int ChessGame::SCENE_HEIGHT = SCENE_WIDTH * 0.6 + 25;
 
-ChessGame::ChessGame(QWidget *parent)
-    : QGraphicsView(parent), _gameRunning(true) {
-
+ChessGame::ChessGame() : QGraphicsScene(), _gameRunning(true) {
   // Making the Scene
-  _gameScene = new QGraphicsScene();
-  _gameScene->setSceneRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
+  setSceneRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
+  setParent(this);
 
-  // Making the view
-  setFixedSize(SCENE_WIDTH, SCENE_HEIGHT);
-  setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  setScene(_gameScene);
   QBrush brush;
   brush.setStyle(Qt::SolidPattern);
   brush.setColor(Qt::black);
@@ -27,10 +20,10 @@ ChessGame::ChessGame(QWidget *parent)
 
   // display turn
   _turnDisplay = new QGraphicsTextItem();
-  _turnDisplay->setPos(width() / 2 - SCENE_HEIGHT * 0.1, SCENE_HEIGHT * 0.005);
+  _turnDisplay->setPos(width() / 2 - SCENE_HEIGHT * 0.1, 3);
   _turnDisplay->setZValue(1);
   _turnDisplay->setDefaultTextColor(Qt::white);
-  _turnDisplay->setFont(QFont("", SCENE_HEIGHT * 0.025));
+  _turnDisplay->setFont(QFont("", SCENE_HEIGHT * 0.02));
   _turnDisplay->setPlainText("Turn : WHITE");
 
   // display Check
@@ -46,8 +39,8 @@ ChessGame::ChessGame(QWidget *parent)
 
 void ChessGame::drawChessBoard() {
   _chessBoard = new ChessBoard(*this);
-  drawDeadHolder(0, 0, Qt::lightGray);
-  drawDeadHolder(SCENE_WIDTH - SCENE_WIDTH * 0.2, 0, Qt::lightGray);
+  drawDeadHolder(0, 0, {190,190,190});
+  drawDeadHolder(SCENE_WIDTH - SCENE_WIDTH * 0.2, 0, {190,190,190});
   _chessBoard->drawBoard(SCENE_WIDTH * 0.2, SCENE_HEIGHT * 0.05);
 }
 
@@ -99,11 +92,9 @@ void ChessGame::placeInDeadPlace(ChessPiece *piece) {
   _playablePieces.removeAll(piece);
 }
 
-void ChessGame::addToScene(QGraphicsItem *item) { _gameScene->addItem(item); }
+void ChessGame::addToScene(QGraphicsItem *item) { addItem(item); }
 
-void ChessGame::removeFromScene(QGraphicsItem *item) {
-  _gameScene->removeItem(item);
-}
+void ChessGame::removeFromScene(QGraphicsItem *item) { removeItem(item); }
 
 void ChessGame::changeTurn() {
   if (turn() == WHITE) {
@@ -164,7 +155,7 @@ void ChessGame::gameOver() {
 }
 
 void ChessGame::removeAll() {
-  QList<QGraphicsItem *> itemsList = _gameScene->items();
+  QList<QGraphicsItem *> itemsList = items();
   for (size_t i = 0, n = itemsList.size(); i < n; i++) {
     if (itemsList[i] != _check)
       removeFromScene(itemsList[i]);

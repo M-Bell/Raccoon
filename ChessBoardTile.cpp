@@ -6,10 +6,11 @@
 ChessBoardTile::ChessBoardTile(ChessGame &game, QGraphicsItem *parent)
     : QGraphicsRectItem(parent), _currentGame(game) {
   // making the Square CHess Box
-  setRect(0, 0, 100, 100);
+  setRect(0, 0, _currentGame.width() * 0.078, _currentGame.width() * 0.078);
   _brush.setStyle(Qt::SolidPattern);
   setZValue(-1);
   _currentPiece = nullptr;
+  setPen(Qt::NoPen);
 }
 
 ChessBoardTile::~ChessBoardTile() {}
@@ -124,8 +125,8 @@ QColor &ChessBoardTile::getColor() { return _color; }
 
 void ChessBoardTile::placePiece(ChessPiece *piece) {
   int shift = _currentGame.width() * 0.075;
-  piece->setPos(x() + shift/2 - piece->pixmap().width() / 2,
-                y() + shift/2 - piece->pixmap().width() / 2);
+  piece->setPos(x() + shift / 2 - piece->pixmap().width() / 2,
+                y() + shift / 2 - piece->pixmap().width() / 2);
   piece->setCurrentTile(this);
   _currentPiece = piece;
 }

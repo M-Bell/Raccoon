@@ -38,10 +38,10 @@ GameWindow::GameWindow(MainWindow *parent)
           SLOT(on_backToMenuBtn_clicked()));
   backToMenuBtn->show();
 
-  QLabel *boardLbl = new QLabel(this);
-  boardLbl->setObjectName("boardLbl");
-  boardLbl->resize(BOARD_SIZE, BOARD_SIZE);
-  boardLbl->move(BOARD_X, BOARD_Y);
+//  QLabel *boardLbl = new QLabel(this);
+//  boardLbl->setObjectName("boardLbl");
+//  boardLbl->resize(BOARD_SIZE, BOARD_SIZE);
+//  boardLbl->move(BOARD_X, BOARD_Y);
 
   //  QPixmap boardPixmap(":/res/images/board.png");
   //  boardLbl->setPixmap(
@@ -110,10 +110,13 @@ GameWindow::GameWindow(MainWindow *parent)
 
   //    blackPieces[14] = Piece(0, queen, 4, 7);
   //    blackPieces[15] = Piece(0, king, 3, 7);
-  ChessGame *game = new ChessGame(this);
-  game->show();
+
+  ChessGame *game = new ChessGame();
   game->displayMainMenu();
-  //    draw();
+  ui->chessboard->setFixedSize(game->width(), game->height());
+  ui->chessboard->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  ui->chessboard->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  ui->chessboard->setScene(game);
 }
 
 GameWindow::~GameWindow() { delete ui; }
