@@ -186,23 +186,25 @@ void ChessBoardTile::validateCheck() {
   }
   bool cantMove = hasCheckmate();
   if (!c && cantMove) {
-    kingPiece->getCurrentTile()->setColor(Qt::blue);
+    if (kingPiece)
+      kingPiece->getCurrentTile()->setColor(Qt::blue);
     _currentGame._check->setVisible(false);
     for (size_t i = 0, n = pList.size(); i < n; i++) {
       pList[i]->getCurrentTile()->setColor(
           pList[i]->getCurrentTile()->getColor());
     }
     _currentGame.gameRunning() = false;
-    _currentGame.showMessage("Stalemate: DRAW");
+    _currentGame.showMessage((char *)"Stalemate: DRAW");
 
   } else if (c && cantMove) {
     _currentGame.gameRunning() = false;
     if (_currentGame.turn() == BLACK) {
-      _currentGame.showMessage("Checkmate: WHITE won");
+      _currentGame.showMessage((char *)"Checkmate: WHITE won");
     } else {
-      _currentGame.showMessage("Checkmate: BLACK won");
+      _currentGame.showMessage((char *)"Checkmate: BLACK won");
     }
   } else if (c) {
-    kingPiece->getCurrentTile()->setColor(Qt::blue);
+    if (kingPiece)
+      kingPiece->getCurrentTile()->setColor(Qt::blue);
   }
 }
