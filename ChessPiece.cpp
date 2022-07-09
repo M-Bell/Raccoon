@@ -13,6 +13,8 @@ ChessBoardTile *ChessPiece::getCurrentTile() { return _currentTile; }
 void ChessPiece::setCurrentTile(ChessBoardTile *value) { _currentTile = value; }
 
 void ChessPiece::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+  if (!_currentGame.gameRunning())
+    return;
   if (this == _currentGame.pieceToMove) {
     _currentGame.pieceToMove->_currentTile->setColor(_currentTile->getColor());
     _currentGame.pieceToMove->decolor();

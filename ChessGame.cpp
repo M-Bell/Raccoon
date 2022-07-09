@@ -3,7 +3,8 @@
 #include "King.h"
 #include <QDebug>
 #include <QPixmap>
-ChessGame::ChessGame(QWidget *parent) : QGraphicsView(parent) {
+ChessGame::ChessGame(QWidget *parent)
+    : QGraphicsView(parent), _gameRunning(true) {
 
   // Making the Scene
   _gameScene = new QGraphicsScene();
@@ -110,6 +111,11 @@ void ChessGame::changeTurn() {
   }
 }
 
+void ChessGame::showMessage(char* msg) {
+    _turnDisplay->setPlainText(msg);
+}
+
+
 void ChessGame::start() {
   for (size_t i = 0, n = _listG.size(); i < n; i++)
     removeFromScene(_listG[i]);
@@ -146,9 +152,6 @@ void ChessGame::drawDeadHolder(int x, int y, QColor color) {
 void ChessGame::displayMainMenu() {
   drawChessBoard();
   start();
-
-//  _allTiles[6][7]->currentPiece()->mousePressEvent(nullptr);
-//  _allTiles[5][7]->mousePressEvent(nullptr);
 }
 
 void ChessGame::gameOver() {

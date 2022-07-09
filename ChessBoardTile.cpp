@@ -17,6 +17,9 @@ ChessBoardTile::~ChessBoardTile() {}
 void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   //  qDebug() << getChessPieceColor();
   // Deselecting counter part of ChessPiece
+  if (!_currentGame.gameRunning())
+    return;
+
   if (_currentPiece == _currentGame.pieceToMove && _currentPiece) {
     _currentPiece->mousePressEvent(event);
     return;
@@ -100,11 +103,11 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         _currentGame._allTiles[row][7]->_currentPiece = nullptr;
       }
     }
-
+    _currentGame.changeTurn();
+    validateCheck();
     _currentGame.pieceToMove = nullptr;
     // changing turn
-    _currentGame.changeTurn();
-    checkForCheck();
+
   }
   // Selecting couterpart of the chessPiece
   else if (this->hasChessPiece()) {
@@ -130,8 +133,22 @@ void ChessBoardTile::placePiece(ChessPiece *piece) {
 void ChessBoardTile::connectToPiece(ChessPiece *piece) {
   _currentPiece = piece;
 }
-
-void ChessBoardTile::checkForCheck() {
+bool ChessBoardTile::hasCheckmate() {
+  int availableMoves = 0;
+  QList<ChessPiece *> pList = _currentGame._playablePieces;
+  ChessPiece *piece = _currentPiece;
+  for (size_t i = 0, n = pList.size(); i < n; i++) {
+    if (pList[i]->side() == _currentGame.turn()) {
+      _currentGame.pieceToMove = pList[i];
+      pList[i]->moves();
+      pList[i]->decolor();
+      availableMoves += pList[i]->moveLocation().size();
+    }
+  }
+  _currentGame.pieceToMove = piece;
+  return availableMoves == 0;
+}
+void ChessBoardTile::validateCheck() {
   int c = 0;
   QList<ChessPiece *> pList = _currentGame._playablePieces;
   for (size_t i = 0, n = pList.size(); i < n; i++) {
@@ -162,10 +179,22 @@ void ChessBoardTile::checkForCheck() {
       }
     }
   }
-  if (!c) {
+  if (!c && hasCheckmate()) {
     _currentGame._check->setVisible(false);
-    for (size_t i = 0, n = pList.size(); i < n; i++)
+    for (size_t i = 0, n = pList.size(); i < n; i++) {
       pList[i]->getCurrentTile()->setColor(
           pList[i]->getCurrentTile()->getColor());
+    }
+    _currentGame.gameRunning() = false;
+    _currentGame.showMessage("Stalemate: DRAW");
+
+  } else if (c && hasCheckmate()) {
+    _currentGame.gameRunning() = false;
+    if(_currentGame.turn()==BLACK){
+        _currentGame.showMessage("Checkmate: WHITE won");
+    } else {
+        _currentGame.showMessage("Checkmate: BLACK won");
+    }
+
   }
 }

@@ -27,7 +27,11 @@ public:
   inline const ChessPieceSide &turn() const { return _turn; }
   inline ChessPieceSide &turn() { return _turn; }
 
+  inline bool &gameRunning() { return _gameRunning; }
+
   void changeTurn();
+  void showMessage(char*);
+
 
   ChessBoardTile *_allTiles[8][8];
   QGraphicsTextItem *_check;
@@ -49,4 +53,5 @@ private:
   ChessBoard *_chessBoard;
   QList<QGraphicsItem *> _listG;
   QGraphicsTextItem *_turnDisplay;
+  bool _gameRunning;
 };

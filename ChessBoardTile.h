@@ -41,5 +41,6 @@ public:
 
   inline bool hasChessPiece() { return _currentPiece != nullptr; }
 
-  void checkForCheck();
+  void validateCheck();
+  bool hasCheckmate();
 };
