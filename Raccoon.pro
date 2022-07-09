@@ -1,4 +1,7 @@
+
 QT       += core gui
+
+win32:RC_ICONS += images/logo.ico
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,8 +22,11 @@ SOURCES += \
     Pawn.cpp \
     Queen.cpp \
     Rook.cpp \
+    gamewindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    piece.cpp \
+    tutorialwindow.cpp
 
 HEADERS += \
     Bishop.h \
@@ -35,11 +41,16 @@ HEADERS += \
     Pawn.h \
     Queen.h \
     Rook.h \
+    СhessBoard.h \
+    gamewindow.h \
     mainwindow.h \
-    СhessBoard.h
+    piece.h \
+    tutorialwindow.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    gamewindow.ui \
+    tutorialwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

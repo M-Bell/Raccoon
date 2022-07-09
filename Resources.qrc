@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>images/backToMenuBtn.png</file>
+        <file>images/exitBtn.png</file>
+        <file>images/icon.ico</file>
+        <file>images/icon.png</file>
+        <file>images/icon_cropped.ico</file>
+        <file>images/icon_cropped.png</file>
+        <file>images/logo.ico</file>
+        <file>images/logo.png</file>
+        <file>images/playBtn.png</file>
+        <file>images/tutorialBtn.png</file>
+        <file>images/tutorialBarEndgames.png</file>
+        <file>images/tutorialBarOpenings.png</file>
+        <file>images/tutorialBarPractice.png</file>
+        <file>images/tutorialBarRules.png</file>
+        <file>images/tutorialBarAnalysis.png</file>
+        <file>images/board.png</file>
+    </qresource>
+</RCC>
