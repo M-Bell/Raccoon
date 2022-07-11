@@ -7,7 +7,7 @@ class ChessGame;
 
 class ChessPiece : public QGraphicsPixmapItem {
 protected:
-  bool kingIsSafe(ChessBoardTile*);
+  bool kingIsSafe(ChessBoardTile *);
   bool _kingFound = false;
   ChessBoardTile *_currentTile;
   ChessGame &_currentGame;
@@ -34,6 +34,8 @@ public:
   inline bool &kingFound() { return _kingFound; }
   inline int &moveLen() { return _moveLen; }
   virtual void setImage() = 0;
+
+  virtual ChessGame &game() const { return _currentGame; }
 
   bool getIsPlaced();
   void setIsPlaced(bool value);

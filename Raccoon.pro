@@ -26,6 +26,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     piece.cpp \
+    piecedialog.cpp \
     tutorialwindow.cpp
 
 HEADERS += \
@@ -41,6 +42,7 @@ HEADERS += \
     Pawn.h \
     Queen.h \
     Rook.h \
+    piecedialog.h \
     СhessBoard.h \
     gamewindow.h \
     mainwindow.h \
@@ -50,6 +52,7 @@ HEADERS += \
 FORMS += \
     mainwindow.ui \
     gamewindow.ui \
+    piecedialog.ui \
     tutorialwindow.ui
 
 # Default rules for deployment.

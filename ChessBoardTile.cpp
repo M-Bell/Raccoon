@@ -2,6 +2,7 @@
 #include "ChessGame.h"
 #include "King.h"
 #include "Pawn.h"
+#include "piecedialog.h"
 
 ChessBoardTile::ChessBoardTile(ChessGame &game, QGraphicsItem *parent)
     : QGraphicsRectItem(parent), _currentGame(game) {
@@ -104,10 +105,30 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         _currentGame._allTiles[row][7]->_currentPiece = nullptr;
       }
     }
+
+    Pawn *p = dynamic_cast<Pawn *>(_currentGame.pieceToMove);
+    if (p) {
+      if (p->side() == WHITE && p->getCurrentTile()->row() == 0) {
+        ChessPiece *piece = PieceDialog::getPiece(_currentGame.pieceToMove);
+        _currentGame.removeFromScene(_currentGame.pieceToMove);
+        _currentGame.pieceToMove = nullptr;
+        _currentGame.addToScene(piece);
+        placePiece(piece);
+        _currentGame.pieceToMove = piece;
+      }
+      if (p->side() == BLACK && p->getCurrentTile()->row() == 7) {
+          ChessPiece *piece = PieceDialog::getPiece(_currentGame.pieceToMove);
+          _currentGame.removeFromScene(_currentGame.pieceToMove);
+          _currentGame.pieceToMove = nullptr;
+          _currentGame.addToScene(piece);
+          placePiece(piece);
+          _currentGame.pieceToMove = piece;
+      }
+    }
+
     _currentGame.changeTurn();
     validateCheck();
     _currentGame.pieceToMove = nullptr;
-    // changing turn
 
   }
   // Selecting couterpart of the chessPiece
