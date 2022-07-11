@@ -38,6 +38,7 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         _currentGame._enPassantTile = nullptr;
       }
     }
+
     // removing the eaten piece
     QList<ChessBoardTile *> movLoc = _currentGame.pieceToMove->moveLocation();
     // TO make sure the selected box is in move zone
@@ -58,6 +59,7 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (check == 0)
       return;
     // change the color back to normal
+    ++_currentGame._halfMovesCounter;
     _currentGame.pieceToMove->decolor();
     // make the first move false applicable for pawn only
     for (int i = 0; i < _currentGame._playablePieces.length(); i++) {
@@ -72,6 +74,8 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
     // this is to eat or consume the enemy present inn the movable region
     if (this->hasChessPiece()) {
+      _currentGame._halfMovesCounter = 0;
+
       this->_currentPiece->setIsPlaced(false);
       if (this->_currentPiece->getCurrentTile() != this) {
         this->_currentPiece->getCurrentTile()->_currentPiece = nullptr;
@@ -108,6 +112,7 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
     Pawn *p = dynamic_cast<Pawn *>(_currentGame.pieceToMove);
     if (p) {
+      _currentGame._halfMovesCounter = 0;
       if (p->side() == WHITE && p->getCurrentTile()->row() == 0) {
         ChessPiece *piece = PieceDialog::getPiece(_currentGame.pieceToMove);
         _currentGame.removeFromScene(_currentGame.pieceToMove);
@@ -117,18 +122,22 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         _currentGame.pieceToMove = piece;
       }
       if (p->side() == BLACK && p->getCurrentTile()->row() == 7) {
-          ChessPiece *piece = PieceDialog::getPiece(_currentGame.pieceToMove);
-          _currentGame.removeFromScene(_currentGame.pieceToMove);
-          _currentGame.pieceToMove = nullptr;
-          _currentGame.addToScene(piece);
-          placePiece(piece);
-          _currentGame.pieceToMove = piece;
+        ChessPiece *piece = PieceDialog::getPiece(_currentGame.pieceToMove);
+        _currentGame.removeFromScene(_currentGame.pieceToMove);
+        _currentGame.pieceToMove = nullptr;
+        _currentGame.addToScene(piece);
+        placePiece(piece);
+        _currentGame.pieceToMove = piece;
       }
     }
 
     _currentGame.changeTurn();
     validateCheck();
     _currentGame.pieceToMove = nullptr;
+    if (_currentGame.turn() == WHITE)
+      ++_currentGame._fullMovesCounter;
+
+      qDebug() << _currentGame.generateFEN();
 
   }
   // Selecting couterpart of the chessPiece

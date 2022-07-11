@@ -154,41 +154,57 @@ void King::moves() {
   if (!this->_hasMoved) {
     if (_side == WHITE) {
       if (_currentGame._allTiles[7][7]->currentPiece() != nullptr &&
-          !_currentGame._allTiles[7][7]->currentPiece()->hasMoved() &&
-          _currentGame._allTiles[7][6]->currentPiece() == nullptr &&
-          _currentGame._allTiles[7][5]->currentPiece() == nullptr) {
-        _location.append(_currentGame._allTiles[7][6]);
-        _currentGame._allTiles[7][6]->setColor(Qt::darkRed);
-        _canCastle = true;
+          !_currentGame._allTiles[7][7]->currentPiece()->hasMoved()) {
+        if (_currentGame._allTiles[7][6]->currentPiece() == nullptr &&
+            _currentGame._allTiles[7][5]->currentPiece() == nullptr) {
+          _location.append(_currentGame._allTiles[7][6]);
+          _currentGame._allTiles[7][6]->setColor(Qt::darkRed);
+          _canCastle = true;
+        }
+      } else {
+        _canCastleKingside = false;
       }
       if (_currentGame._allTiles[7][0]->currentPiece() != nullptr &&
-          !_currentGame._allTiles[7][0]->currentPiece()->hasMoved() &&
-          _currentGame._allTiles[7][1]->currentPiece() == nullptr &&
-          _currentGame._allTiles[7][2]->currentPiece() == nullptr &&
-          _currentGame._allTiles[7][3]->currentPiece() == nullptr) {
-        _location.append(_currentGame._allTiles[7][2]);
-        _currentGame._allTiles[7][2]->setColor(Qt::darkRed);
-        _canCastle = true;
+          !_currentGame._allTiles[7][0]->currentPiece()->hasMoved()) {
+        if (_currentGame._allTiles[7][1]->currentPiece() == nullptr &&
+            _currentGame._allTiles[7][2]->currentPiece() == nullptr &&
+            _currentGame._allTiles[7][3]->currentPiece() == nullptr) {
+          _location.append(_currentGame._allTiles[7][2]);
+          _currentGame._allTiles[7][2]->setColor(Qt::darkRed);
+          _canCastle = true;
+        }
+      } else {
+        _canCastleQueenside = false;
       }
     } else {
       if (_currentGame._allTiles[0][7]->currentPiece() != nullptr &&
-          !_currentGame._allTiles[0][7]->currentPiece()->hasMoved() &&
-          _currentGame._allTiles[0][6]->currentPiece() == nullptr &&
-          _currentGame._allTiles[0][5]->currentPiece() == nullptr) {
-        _location.append(_currentGame._allTiles[0][6]);
-        _currentGame._allTiles[0][6]->setColor(Qt::darkRed);
-        _canCastle = true;
+          !_currentGame._allTiles[0][7]->currentPiece()->hasMoved()) {
+        if (_currentGame._allTiles[0][6]->currentPiece() == nullptr &&
+            _currentGame._allTiles[0][5]->currentPiece() == nullptr) {
+          _location.append(_currentGame._allTiles[0][6]);
+          _currentGame._allTiles[0][6]->setColor(Qt::darkRed);
+          _canCastle = true;
+        }
+      } else {
+        _canCastleKingside = false;
       }
       if (_currentGame._allTiles[0][0]->currentPiece() != nullptr &&
-          !_currentGame._allTiles[0][0]->currentPiece()->hasMoved() &&
-          _currentGame._allTiles[0][1]->currentPiece() == nullptr &&
-          _currentGame._allTiles[0][2]->currentPiece() == nullptr &&
-          _currentGame._allTiles[0][3]->currentPiece() == nullptr) {
-        _location.append(_currentGame._allTiles[0][2]);
-        _currentGame._allTiles[0][2]->setColor(Qt::darkRed);
-        _canCastle = true;
+          !_currentGame._allTiles[0][0]->currentPiece()->hasMoved()) {
+
+        if (_currentGame._allTiles[0][1]->currentPiece() == nullptr &&
+            _currentGame._allTiles[0][2]->currentPiece() == nullptr &&
+            _currentGame._allTiles[0][3]->currentPiece() == nullptr) {
+          _location.append(_currentGame._allTiles[0][2]);
+          _currentGame._allTiles[0][2]->setColor(Qt::darkRed);
+          _canCastle = true;
+        }
+      } else {
+        _canCastleQueenside = false;
       }
     }
+  } else {
+    _canCastleQueenside = false;
+    _canCastleKingside = false;
   }
 
   findUnSafeLocation();

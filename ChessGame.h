@@ -36,6 +36,12 @@ public:
   QGraphicsTextItem *_check;
   QList<ChessPiece *> _playablePieces;
   ChessBoardTile *_enPassantTile = nullptr;
+
+  QString generateFEN();
+
+  int _halfMovesCounter = 0;
+  int _fullMovesCounter = 0;
+
   void displayMainMenu();
 
   void gameOver();
@@ -55,6 +61,9 @@ private:
   QList<QGraphicsItem *> _listG;
   QGraphicsTextItem *_turnDisplay;
   bool _gameRunning;
+
+  char getPieceChar(ChessPiece *);
+  QString getTileName(const int row, const int col);
 
   static int SCENE_WIDTH;
   static int SCENE_HEIGHT;

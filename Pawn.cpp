@@ -27,8 +27,9 @@ void Pawn::moveForward(int row, int col, ChessPieceSide side) {
       kingIsSafe(_currentGame._allTiles[row + direction][col])) {
 
     if (!hasMoved() &&
-        !_currentGame._allTiles[row + direction * 2][col]->hasChessPiece() &&
-        kingIsSafe(_currentGame._allTiles[row + direction * 2][col])) {
+        !_currentGame._allTiles[row + direction * 2][col]->hasChessPiece()) {
+
+      kingIsSafe(_currentGame._allTiles[row + direction * 2][col]);
     }
   }
 }
