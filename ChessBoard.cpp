@@ -11,14 +11,14 @@
 ChessBoard::ChessBoard(ChessGame &game) : _currentGame(game) { initPieces(); }
 
 void ChessBoard::drawBoard(const int x, const int y) {
-  int shift = _currentGame.width() * 0.075;
+  int shift = _currentGame.width() * 0.071;
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
       ChessBoardTile *tile = new ChessBoardTile(_currentGame);
       _currentGame._allTiles[i][j] = tile;
       tile->row() = i;
       tile->col() = j;
-      tile->setPos(x + shift * j, y + shift * i);
+      tile->setPos(x + shift * j + _currentGame.width() * 0.032, y + shift * i);
       if ((i + j) % 2 == 0) {
 
         tile->setColor({255, 206, 158});
@@ -30,6 +30,23 @@ void ChessBoard::drawBoard(const int x, const int y) {
       }
       _currentGame.addToScene(tile);
     }
+    QGraphicsTextItem *number = new QGraphicsTextItem();
+    number->setPos(_currentGame.width() * 0.2 + _currentGame.width() * 0.012,
+                   50 + i * shift);
+    number->setZValue(1);
+    number->setDefaultTextColor(Qt::white);
+    number->setFont(QFont("", 8));
+    number->setPlainText(QString::number(8 - i));
+    _currentGame.addToScene(number);
+
+    number = new QGraphicsTextItem();
+    number->setPos(_currentGame.width() * 0.185 + i * shift + shift,
+                   50 + 7.8 * shift);
+    number->setZValue(1);
+    number->setDefaultTextColor(Qt::white);
+    number->setFont(QFont("", 8));
+    number->setPlainText(QChar('A' + i));
+    _currentGame.addToScene(number);
   }
 }
 
