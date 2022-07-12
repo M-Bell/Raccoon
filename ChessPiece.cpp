@@ -52,7 +52,7 @@ void ChessPiece::decolor() {
 bool ChessPiece::kingIsSafe(ChessBoardTile *tile) {
   if (_currentGame.pieceToMove != this) {
     _location.append(tile);
-    return true;
+    return false;
   }
 
   ChessPiece *beatenPiece = tile->currentPiece();
