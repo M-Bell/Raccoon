@@ -43,5 +43,11 @@
         <file>text/queen_king_fen.txt</file>
         <file>text/rook_king_fen.txt</file>
         <file>text/two_rooks_king_fen.txt</file>
+        <file>text/one_move_checkmate_1.txt</file>
+        <file>text/one_move_checkmate_2.txt</file>
+        <file>text/one_move_checkmate_3.txt</file>
+        <file>text/one_move_checkmate_4.txt</file>
+        <file>text/one_move_checkmate_5.txt</file>
+        <file>text/one_move_checkmate_6.txt</file>
     </qresource>
 </RCC>

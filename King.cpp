@@ -151,7 +151,7 @@ void King::moves() {
     //      _location.last()->setColor(Qt::red);
     //    }
   }
-  if (!this->_hasMoved) {
+  if (!this->_hasMoved && !_currentGame._check->isVisible()) {
     if (_side == WHITE) {
       if (_currentGame._allTiles[7][7]->currentPiece() != nullptr &&
           !_currentGame._allTiles[7][7]->currentPiece()->hasMoved()) {
