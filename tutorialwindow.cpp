@@ -1,6 +1,7 @@
 #include "tutorialwindow.h"
 #include "choosepracticewindow.h"
 #include "endgameschoosewindow.h"
+#include "gamewindow.h"
 #include "mainwindow.h"
 #include "openingschoosewindow.h"
 #include "ui_tutorialwindow.h"
@@ -114,8 +115,8 @@ TutorialWindow::TutorialWindow(MainWindow *parent)
   tutorialBarAnalysisBtn->setIconSize(QSize(BAR_W, BAR_H));
   tutorialBarAnalysisBtn->setStyleSheet(
       "background-color: rgba(255, 255, 255, 0);");
-  //    connect(tutorialBarAnalysisBtn, SIGNAL(clicked()), this,
-  //    SLOT(on_tutorialBarAnalysisBtn_clicked()));
+  connect(tutorialBarAnalysisBtn, SIGNAL(clicked()), this,
+          SLOT(on_tutorialBarAnalysisBtn_clicked()));
   tutorialBarAnalysisBtn->show();
 }
 
@@ -124,6 +125,11 @@ TutorialWindow::~TutorialWindow() { delete ui; }
 void TutorialWindow::on_backToMenuBtn_clicked() {
   parent->show();
   hide();
+}
+
+void TutorialWindow::on_tutorialBarAnalysisBtn_clicked() {
+  GameWindow *game = new GameWindow(false, nullptr, this);
+  game->show();
 }
 
 void TutorialWindow::on_tutorialBarPracticeBtn_clicked() {

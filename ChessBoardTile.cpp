@@ -3,6 +3,7 @@
 #include "King.h"
 #include "Pawn.h"
 #include "piecedialog.h"
+#include <QDateTime>
 #include <QRandomGenerator>
 
 ChessBoardTile::ChessBoardTile(ChessGame &game, QGraphicsItem *parent)
@@ -162,16 +163,20 @@ void ChessBoardTile::moveBlack() {
   }
   if (_black.length() <= 0)
     return;
+  QRandomGenerator rnd(QDateTime::currentDateTime().time().msecsSinceStartOfDay());
   do {
-    QRandomGenerator rnd;
     int blackAmount = _black.size();
     int rndBlack = rnd.bounded(blackAmount);
     _black.at(rndBlack)->mousePressEvent(nullptr);
     int len = _black.at(rndBlack)->moveLocation().length();
     if (len > 0) {
-      _black.at(rndBlack)->moveLocation().at(rnd.bounded(len))->mousePressEvent(nullptr);
+      _black.at(rndBlack)
+          ->moveLocation()
+          .at(rnd.bounded(len))
+          ->mousePressEvent(nullptr);
       break;
     }
+    _black.at(rndBlack)->mousePressEvent(nullptr);
   } while (_currentGame.gameRunning());
 }
 
