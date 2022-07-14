@@ -57,7 +57,6 @@ GameWindow::GameWindow(const bool hasBot, QString *fen, QWidget *parent)
   connect(backToMenuBtn, SIGNAL(clicked()), this,
           SLOT(on_backToMenuBtn_clicked()));
   backToMenuBtn->show();
-
   _game = new ChessGame(_hasBot, _fen);
   _game->displayMainMenu();
   ui->chessboard->setFixedSize(_game->width(), _game->height());
