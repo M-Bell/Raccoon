@@ -103,6 +103,6 @@ void MainWindow::on_tutorialBtn_clicked()
 {
     hide();
     TutorialWindow *tutorialWindow = new TutorialWindow(this);
-    tutorialWindow -> show();
+    tutorialWindow->show();
 }
 

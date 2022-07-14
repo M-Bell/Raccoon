@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "piece.h"
 #include <QDialog>
+#include <QProcess>
 
 namespace Ui {
 class GameWindow;
@@ -31,7 +32,7 @@ private slots:
 
 private:
   Ui::GameWindow *ui;
-  QWidget *parent;
+  QWidget* parent;
 };
 
 #endif // GAMEWINDOW_H

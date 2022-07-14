@@ -28,6 +28,8 @@ SOURCES += \
     piece.cpp \
     piecedialog.cpp \
     pieceinstructionswindow.cpp \
+    quiz.cpp \
+    tutorialpage.cpp \
     tutorialwindow.cpp
 
 HEADERS += \
@@ -45,6 +47,8 @@ HEADERS += \
     Rook.h \
     piecedialog.h \
     pieceinstructionswindow.h \
+    quiz.h \
+    tutorialpage.h \
     СhessBoard.h \
     gamewindow.h \
     mainwindow.h \
@@ -56,6 +60,8 @@ FORMS += \
     gamewindow.ui \
     piecedialog.ui \
     pieceinstructionswindow.ui \
+    quiz.ui \
+    tutorialpage.ui \
     tutorialwindow.ui
 
 # Default rules for deployment.

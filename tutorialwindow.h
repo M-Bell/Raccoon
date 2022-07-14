@@ -1,6 +1,7 @@
 #ifndef TUTORIALWINDOW_H
 #define TUTORIALWINDOW_H
 #include "mainwindow.h"
+#include "tutorialpage.h"
 
 #include <QDialog>
 
@@ -20,8 +21,10 @@ private slots:
   void on_tutorialBarRulesBtn_clicked();
 
 private:
-  Ui::TutorialWindow *ui;
-  QWidget *parent;
+  Ui::TutorialWindow* ui;
+  QWidget* parent;
+
+  TutorialPage* tutorial;
 };
 
 #endif // TUTORIALWINDOW_H

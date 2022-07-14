@@ -4,6 +4,8 @@
 #include <QFont>
 #include <QPixmap>
 
+#include <QMessageBox>
+#include <QProcess>
 #include <QPushButton>
 #include <iostream>
 

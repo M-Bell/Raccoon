@@ -1,14 +1,18 @@
 #include "tutorialwindow.h"
 #include "mainwindow.h"
 #include "ui_tutorialwindow.h"
+#include "tutorialpage.h"
 #include <QFont>
 #include <QPixmap>
 #include <QPushButton>
+#include <ui_tutorialpage.h>
 
 TutorialWindow::TutorialWindow(MainWindow *parent)
     : QDialog(parent), ui(new Ui::TutorialWindow) {
   this->parent = parent;
+  this->tutorial = new TutorialPage;
   ui->setupUi(this);
+
 
   int WINDOW_W = 1280;
   int WINDOW_H = 720;
@@ -120,9 +124,10 @@ TutorialWindow::~TutorialWindow() { delete ui; }
 
 void TutorialWindow::on_backToMenuBtn_clicked() {
   parent->show();
-  hide();
+  this->hide();
 }
 
 void TutorialWindow::on_tutorialBarRulesBtn_clicked() {
-
+    tutorial->show();
+    this->hide();
 }

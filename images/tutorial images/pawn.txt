@@ -1,0 +1,1 @@
+Pawns always go forward on 1 square. If pawn is on start position pawn can go on 2 sqares forward. Pawn captures pieces which are on forward diagonal squares. 
