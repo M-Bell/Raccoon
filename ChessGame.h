@@ -8,7 +8,7 @@ class ChessGame : public QGraphicsScene {
   Q_OBJECT
 public:
   // Constructors
-  ChessGame(const bool hasBot, QString *fen = nullptr);
+  ChessGame(const bool hasBot, QList<QString> *fen = nullptr);
 
   // public Methods
   void drawDeadHolder(int x, int y, QColor color);
@@ -36,6 +36,7 @@ public:
   QGraphicsTextItem *_check;
   QList<ChessPiece *> _playablePieces;
   ChessBoardTile *_enPassantTile = nullptr;
+  int _currentLayer = 0;
 
   QString generateFEN();
 
@@ -48,10 +49,13 @@ public:
   void gameOver();
   void removeAll();
 
+  void nextPos();
+  void prevPos();
+
   inline int width() const { return SCENE_WIDTH; }
   inline int height() const { return SCENE_HEIGHT; }
 
-  QString *_fen;
+  QList<QString> *_fen;
 public slots:
   void start();
 

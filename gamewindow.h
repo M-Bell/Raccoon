@@ -1,6 +1,7 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
+#include "ChessGame.h"
 #include "mainwindow.h"
 #include "piece.h"
 #include <QDialog>
@@ -21,7 +22,8 @@ public:
   int BOARD_Y;
   int CELL_SIZE;
   int FONT_SIZE;
-  explicit GameWindow(const bool hasBot, QString* fen = nullptr, QWidget *parent = nullptr);
+  explicit GameWindow(const bool hasBot, QString *fen = nullptr,
+                      QWidget *parent = nullptr);
   ~GameWindow();
 
   void draw();
@@ -29,10 +31,15 @@ public:
 private slots:
   void on_backToMenuBtn_clicked();
 
+  void on_next_pos_clicked();
+
+  void on_prev_pos_clicked();
+
 private:
   Ui::GameWindow *ui;
   QWidget *parent;
-  QString* _fen;
+  QList<QString> *_fen;
+  ChessGame *_game;
   bool _hasBot;
 };
 

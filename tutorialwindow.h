@@ -19,6 +19,7 @@ private slots:
   void on_backToMenuBtn_clicked();
   void on_tutorialBarRulesBtn_clicked();
   void on_tutorialBarEndgamesBtn_clicked();
+  void on_tutorialBarOpeningsBtn_clicked();
 
 private:
   Ui::TutorialWindow *ui;

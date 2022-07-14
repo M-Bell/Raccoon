@@ -12,7 +12,7 @@
 int ChessGame::SCENE_WIDTH = 900;
 int ChessGame::SCENE_HEIGHT = SCENE_WIDTH * 0.6 + 25;
 
-ChessGame::ChessGame(const bool hasBot, QString *fen)
+ChessGame::ChessGame(const bool hasBot, QList<QString> *fen)
     : QGraphicsScene(), _hasBot(hasBot), _fen(fen), _gameRunning(true) {
   // Making the Scene
   setSceneRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
@@ -41,6 +41,24 @@ ChessGame::ChessGame(const bool hasBot, QString *fen)
   _turnDisplay->setDefaultTextColor(Qt::white);
   _turnDisplay->setFont(QFont("", SCENE_HEIGHT * 0.02));
   _turnDisplay->setPlainText("Turn : WHITE");
+}
+
+void ChessGame::nextPos() {
+  if (_currentLayer + 1 >= _fen->length()) {
+    return;
+  }
+  ++_currentLayer;
+  _chessBoard->reset();
+  _chessBoard->placePieces();
+}
+
+void ChessGame::prevPos() {
+  if (_currentLayer - 1 < 0) {
+    return;
+  }
+  --_currentLayer;
+  _chessBoard->reset();
+  _chessBoard->placePieces();
 }
 
 void ChessGame::drawChessBoard() {

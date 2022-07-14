@@ -115,20 +115,25 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (p) {
       _currentGame._halfMovesCounter = 0;
       if (p->side() == WHITE && p->getCurrentTile()->row() == 0) {
+        _currentGame._playablePieces.removeAll(_currentGame.pieceToMove);
         ChessPiece *piece = PieceDialog::getPiece(_currentGame.pieceToMove);
+
         _currentGame.removeFromScene(_currentGame.pieceToMove);
         _currentGame.pieceToMove = nullptr;
         _currentGame.addToScene(piece);
         placePiece(piece);
         _currentGame.pieceToMove = piece;
+        _currentGame._playablePieces.append(piece);
       }
       if (p->side() == BLACK && p->getCurrentTile()->row() == 7) {
+        _currentGame._playablePieces.removeAll(_currentGame.pieceToMove);
         ChessPiece *piece = PieceDialog::getPiece(_currentGame.pieceToMove);
         _currentGame.removeFromScene(_currentGame.pieceToMove);
         _currentGame.pieceToMove = nullptr;
         _currentGame.addToScene(piece);
         placePiece(piece);
         _currentGame.pieceToMove = piece;
+        _currentGame._playablePieces.append(piece);
       }
     }
 

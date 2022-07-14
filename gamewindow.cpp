@@ -1,16 +1,36 @@
 #include "gamewindow.h"
 #include "ChessGame.h"
 #include "ui_gamewindow.h"
+#include <QFile>
 #include <QFont>
 #include <QPixmap>
-
 #include <QPushButton>
 #include <iostream>
 
 GameWindow::GameWindow(const bool hasBot, QString *fen, QWidget *parent)
-    : QDialog(parent), ui(new Ui::GameWindow), _fen(fen), _hasBot(hasBot) {
-  this->parent = parent;
+    : QDialog(parent), ui(new Ui::GameWindow), _fen(new QList<QString>()),
+      _hasBot(hasBot) {
   ui->setupUi(this);
+  if (fen) {
+    QFile file(*fen);
+    if (!file.open(QIODevice::ReadOnly)) {
+      qDebug() << "error: " << file.errorString();
+    }
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+      _fen->append(in.readLine());
+    }
+    file.close();
+    if (_fen->length() < 2) {
+      ui->next_pos->setVisible(false);
+      ui->prev_pos->setVisible(false);
+    }
+  } else {
+    ui->next_pos->setVisible(false);
+    ui->prev_pos->setVisible(false);
+  }
+
+  this->parent = parent;
 
   this->resize(parent->width(), parent->height());
 
@@ -38,12 +58,12 @@ GameWindow::GameWindow(const bool hasBot, QString *fen, QWidget *parent)
           SLOT(on_backToMenuBtn_clicked()));
   backToMenuBtn->show();
 
-  ChessGame *game = new ChessGame(_hasBot, _fen);
-  game->displayMainMenu();
-  ui->chessboard->setFixedSize(game->width(), game->height());
+  _game = new ChessGame(_hasBot, _fen);
+  _game->displayMainMenu();
+  ui->chessboard->setFixedSize(_game->width(), _game->height());
   ui->chessboard->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   ui->chessboard->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  ui->chessboard->setScene(game);
+  ui->chessboard->setScene(_game);
 }
 
 GameWindow::~GameWindow() { delete ui; }
@@ -72,3 +92,7 @@ void GameWindow::draw() {
     piece.setLabel(label);
   }
 }
+
+void GameWindow::on_next_pos_clicked() { _game->nextPos(); }
+
+void GameWindow::on_prev_pos_clicked() { _game->prevPos(); }

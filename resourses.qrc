@@ -34,5 +34,14 @@
         <file>text/queen_king.txt</file>
         <file>text/rook_king.txt</file>
         <file>text/two_rooks_king.txt</file>
+        <file>text/caro_kann_def.txt</file>
+        <file>text/italian_game.txt</file>
+        <file>text/pirc_def.txt</file>
+        <file>text/caro_kann_def_fen.txt</file>
+        <file>text/italian_game_fen.txt</file>
+        <file>text/pirc_def_fen.txt</file>
+        <file>text/queen_king_fen.txt</file>
+        <file>text/rook_king_fen.txt</file>
+        <file>text/two_rooks_king_fen.txt</file>
     </qresource>
 </RCC>

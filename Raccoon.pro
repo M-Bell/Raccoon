@@ -27,6 +27,7 @@ SOURCES += \
     gamewindow.cpp \
     main.cpp \
     mainwindow.cpp \
+    openingschoosewindow.cpp \
     piece.cpp \
     piecedialog.cpp \
     pieceinstructionswindow.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     Rook.h \
     endgameschoosewindow.h \
     gameinfodialog.h \
+    openingschoosewindow.h \
     piecedialog.h \
     pieceinstructionswindow.h \
     СhessBoard.h \
@@ -60,6 +62,7 @@ FORMS += \
     gameinfodialog.ui \
     mainwindow.ui \
     gamewindow.ui \
+    openingschoosewindow.ui \
     piecedialog.ui \
     pieceinstructionswindow.ui \
     tutorialwindow.ui

@@ -1,6 +1,7 @@
 #include "tutorialwindow.h"
 #include "endgameschoosewindow.h"
 #include "mainwindow.h"
+#include "openingschoosewindow.h"
 #include "ui_tutorialwindow.h"
 #include <QFont>
 #include <QPixmap>
@@ -64,8 +65,8 @@ TutorialWindow::TutorialWindow(MainWindow *parent)
   tutorialBarOpeningsBtn->setIconSize(QSize(BAR_W, BAR_H));
   tutorialBarOpeningsBtn->setStyleSheet(
       "background-color: rgba(255, 255, 255, 0);");
-  //    connect(tutorialBarOpeningsBtn, SIGNAL(clicked()), this,
-  //    SLOT(on_tutorialBarOpeningsBtn_clicked()));
+  connect(tutorialBarOpeningsBtn, SIGNAL(clicked()), this,
+          SLOT(on_tutorialBarOpeningsBtn_clicked()));
   tutorialBarOpeningsBtn->show();
 
   QPixmap tutorialBarEndgamesPixmap(":/res/images/tutorialBarEndgames.png");
@@ -125,6 +126,12 @@ void TutorialWindow::on_backToMenuBtn_clicked() {
 }
 
 void TutorialWindow::on_tutorialBarRulesBtn_clicked() {}
+
+void TutorialWindow::on_tutorialBarOpeningsBtn_clicked() {
+  OpeningsChooseWindow win(this);
+  win.exec();
+  win.show();
+}
 
 void TutorialWindow::on_tutorialBarEndgamesBtn_clicked() {
   EndgamesChooseWindow win(this);

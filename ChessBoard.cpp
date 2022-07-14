@@ -9,7 +9,7 @@
 #include "Rook.h"
 
 ChessBoard::ChessBoard(ChessGame &game) : _currentGame(game) {
-  if (!game._fen) {
+  if (!_currentGame._fen || _currentGame._fen->length() == 0) {
     initPieces();
   }
 }
@@ -101,7 +101,7 @@ void ChessBoard::initPieces() {
 }
 
 void ChessBoard::placePieces() {
-  if (!_currentGame._fen) {
+  if (!_currentGame._fen || _currentGame._fen->length() == 0) {
     int pieceCode = 0;
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
@@ -120,8 +120,11 @@ void ChessBoard::placePieces() {
       }
     }
   } else {
+    if (_currentGame._fen->length() > 1)
+      _currentGame.gameRunning() = false;
     int shift = 0;
-    QStringList data = _currentGame._fen->split(" ");
+    QStringList data =
+        _currentGame._fen->at(_currentGame._currentLayer).split(" ");
     QString position = data.at(0);
     if (data.at(1) == "b")
       _currentGame.changeTurn();
@@ -172,4 +175,10 @@ void ChessBoard::addPieceFromChar(int x, int y, const QChar name) {
   }
 }
 
-void ChessBoard::reset() {}
+void ChessBoard::reset() {
+  for (qsizetype i = 0; i < _allPieces.length(); ++i) {
+    _currentGame.removeFromScene(_allPieces.at(i));
+    delete _allPieces.at(i);
+  }
+  _allPieces.clear();
+}
