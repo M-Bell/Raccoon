@@ -3,7 +3,7 @@
 class ChessGame;
 class ChessBoard {
 public:
-  ChessBoard(ChessGame& game);
+  ChessBoard(ChessGame &game);
 
   void drawBoard(const int x, const int y);
 
@@ -16,7 +16,7 @@ private:
   QList<ChessPiece *> _allPieces;
 
   void initPieces();
-
+  void addPieceFromChar(int x, int y, const QChar pieceName);
 
   ChessGame &_currentGame;
 };

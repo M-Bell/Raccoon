@@ -3,6 +3,7 @@
 #include "King.h"
 #include "Pawn.h"
 #include "piecedialog.h"
+#include <QRandomGenerator>
 
 ChessBoardTile::ChessBoardTile(ChessGame &game, QGraphicsItem *parent)
     : QGraphicsRectItem(parent), _currentGame(game) {
@@ -136,13 +137,32 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     _currentGame.pieceToMove = nullptr;
     if (_currentGame.turn() == WHITE)
       ++_currentGame._fullMovesCounter;
-
-      qDebug() << _currentGame.generateFEN();
-
+    if (_currentGame._hasBot) {
+      moveBlack();
+    }
+    // qDebug() << _currentGame.generateFEN();
   }
   // Selecting couterpart of the chessPiece
   else if (this->hasChessPiece()) {
     this->_currentPiece->mousePressEvent(event);
+  }
+}
+
+void ChessBoardTile::moveBlack() {
+  ChessPiece *piece = nullptr;
+  for (qsizetype i = 0; i < _currentGame._playablePieces.length(); ++i) {
+    if (_currentGame._playablePieces.at(i)->side() == BLACK) {
+      piece = _currentGame._playablePieces.at(i);
+      piece->mousePressEvent(nullptr);
+      break;
+    }
+  }
+  if (!piece)
+    return;
+  int len = piece->moveLocation().length();
+  if (len > 0) {
+    QRandomGenerator rnd;
+    piece->moveLocation().at(rnd.bounded(len))->mousePressEvent(nullptr);
   }
 }
 
@@ -181,7 +201,7 @@ bool ChessBoardTile::hasCheckmate() {
 }
 void ChessBoardTile::validateCheck() {
   int c = 0;
-  ChessPiece *kingPiece;
+  ChessPiece *kingPiece = nullptr;
   QList<ChessPiece *> pList = _currentGame._playablePieces;
   for (size_t i = 0, n = pList.size(); i < n; i++) {
 
@@ -236,5 +256,10 @@ void ChessBoardTile::validateCheck() {
   } else if (c) {
     if (kingPiece)
       kingPiece->getCurrentTile()->setColor(Qt::blue);
+  }
+  if (_currentGame._halfMovesCounter == 100) {
+    _currentGame.gameRunning() = false;
+    _currentGame.showMessage(
+        (char *)"Stalemate: DRAW (Exceeded allowed moves)");
   }
 }

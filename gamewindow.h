@@ -21,7 +21,7 @@ public:
   int BOARD_Y;
   int CELL_SIZE;
   int FONT_SIZE;
-  explicit GameWindow(MainWindow *parent = nullptr);
+  explicit GameWindow(const bool hasBot, QString* fen = nullptr, QWidget *parent = nullptr);
   ~GameWindow();
 
   void draw();
@@ -32,6 +32,8 @@ private slots:
 private:
   Ui::GameWindow *ui;
   QWidget *parent;
+  QString* _fen;
+  bool _hasBot;
 };
 
 #endif // GAMEWINDOW_H

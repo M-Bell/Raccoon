@@ -8,7 +8,11 @@
 #include "Queen.h"
 #include "Rook.h"
 
-ChessBoard::ChessBoard(ChessGame &game) : _currentGame(game) { initPieces(); }
+ChessBoard::ChessBoard(ChessGame &game) : _currentGame(game) {
+  if (!game._fen) {
+    initPieces();
+  }
+}
 
 void ChessBoard::drawBoard(const int x, const int y) {
   int shift = _currentGame.width() * 0.071;
@@ -97,22 +101,75 @@ void ChessBoard::initPieces() {
 }
 
 void ChessBoard::placePieces() {
-  int pieceCode = 0;
-  for (int i = 0; i < 8; i++) {
-    for (int j = 0; j < 8; j++) {
+  if (!_currentGame._fen) {
+    int pieceCode = 0;
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
 
-      ChessBoardTile *tile = _currentGame._allTiles[i][j];
-      if (i < 2) {
-        tile->placePiece(_allPieces[pieceCode]);
-        _currentGame._playablePieces.append(_allPieces[pieceCode]);
-        _currentGame.addToScene(_allPieces[pieceCode++]);
+        ChessBoardTile *tile = _currentGame._allTiles[i][j];
+        if (i < 2) {
+          tile->placePiece(_allPieces[pieceCode]);
+          _currentGame._playablePieces.append(_allPieces[pieceCode]);
+          _currentGame.addToScene(_allPieces[pieceCode++]);
+        }
+        if (i > 5) {
+          tile->placePiece(_allPieces[pieceCode]);
+          _currentGame._playablePieces.append(_allPieces[pieceCode]);
+          _currentGame.addToScene(_allPieces[pieceCode++]);
+        }
       }
-      if (i > 5) {
-        tile->placePiece(_allPieces[pieceCode]);
-        _currentGame._playablePieces.append(_allPieces[pieceCode]);
-        _currentGame.addToScene(_allPieces[pieceCode++]);
+    }
+  } else {
+    int shift = 0;
+    QStringList data = _currentGame._fen->split(" ");
+    QString position = data.at(0);
+    if (data.at(1) == "b")
+      _currentGame.changeTurn();
+    _currentGame._halfMovesCounter = data.at(4).toInt();
+    _currentGame._fullMovesCounter = data.at(5).toInt();
+    QStringList positions = position.split("/");
+    for (qsizetype i = 0; i < positions.length(); ++i) {
+      for (qsizetype j = 0; j < positions.at(i).length(); ++j) {
+        if (positions.at(i).at(j).isNumber()) {
+          shift += positions.at(i).at(j).digitValue() - 1;
+        } else {
+          addPieceFromChar(i, shift + j, positions.at(i).at(j));
+        }
       }
+      shift = 0;
     }
   }
 }
+
+void ChessBoard::addPieceFromChar(int x, int y, const QChar name) {
+  ChessPiece *piece = nullptr;
+  ChessPieceSide side = name.isUpper() ? WHITE : BLACK;
+  QChar _lowercaseName = name.toLower();
+  if (_lowercaseName == 'p') {
+    piece = new Pawn(side, _currentGame);
+  }
+  if (_lowercaseName == 'k') {
+    piece = new King(side, _currentGame);
+  }
+  if (_lowercaseName == 'n') {
+    piece = new Knight(side, _currentGame);
+  }
+  if (_lowercaseName == 'b') {
+    piece = new Bishop(side, _currentGame);
+  }
+  if (_lowercaseName == 'q') {
+    piece = new Queen(side, _currentGame);
+  }
+  if (_lowercaseName == 'r') {
+    piece = new Rook(side, _currentGame);
+  }
+  if (piece) {
+    _allPieces.append(piece);
+    ChessBoardTile *tile = _currentGame._allTiles[x][y];
+    tile->placePiece(piece);
+    _currentGame._playablePieces.append(piece);
+    _currentGame.addToScene(piece);
+  }
+}
+
 void ChessBoard::reset() {}

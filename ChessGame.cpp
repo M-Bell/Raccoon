@@ -12,7 +12,8 @@
 int ChessGame::SCENE_WIDTH = 900;
 int ChessGame::SCENE_HEIGHT = SCENE_WIDTH * 0.6 + 25;
 
-ChessGame::ChessGame() : QGraphicsScene(), _gameRunning(true) {
+ChessGame::ChessGame(const bool hasBot, QString *fen)
+    : QGraphicsScene(), _hasBot(hasBot), _fen(fen), _gameRunning(true) {
   // Making the Scene
   setSceneRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
   setParent(this);
@@ -23,14 +24,6 @@ ChessGame::ChessGame() : QGraphicsScene(), _gameRunning(true) {
   setBackgroundBrush(brush);
   pieceToMove = nullptr;
 
-  // display turn
-  _turnDisplay = new QGraphicsTextItem();
-  _turnDisplay->setPos(width() / 2 - SCENE_HEIGHT * 0.1, 3);
-  _turnDisplay->setZValue(1);
-  _turnDisplay->setDefaultTextColor(Qt::white);
-  _turnDisplay->setFont(QFont("", SCENE_HEIGHT * 0.02));
-  _turnDisplay->setPlainText("Turn : WHITE");
-
   // display Check
   _check = new QGraphicsTextItem();
   _check->setPos(width() / 2 - 100, 860);
@@ -40,6 +33,14 @@ ChessGame::ChessGame() : QGraphicsScene(), _gameRunning(true) {
   _check->setPlainText("CHECK!");
   _check->setVisible(false);
   turn() = WHITE;
+
+  // display turn
+  _turnDisplay = new QGraphicsTextItem();
+  _turnDisplay->setPos(width() / 2 - SCENE_HEIGHT * 0.1, 3);
+  _turnDisplay->setZValue(1);
+  _turnDisplay->setDefaultTextColor(Qt::white);
+  _turnDisplay->setFont(QFont("", SCENE_HEIGHT * 0.02));
+  _turnDisplay->setPlainText("Turn : WHITE");
 }
 
 void ChessGame::drawChessBoard() {

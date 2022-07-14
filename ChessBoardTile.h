@@ -15,6 +15,8 @@ private:
   int _row;
   int _col;
 
+  void moveBlack();
+
 public:
   // Constructor
   ChessBoardTile(ChessGame &game, QGraphicsItem *parent = 0);

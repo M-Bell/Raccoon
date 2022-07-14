@@ -8,7 +8,7 @@ class ChessGame : public QGraphicsScene {
   Q_OBJECT
 public:
   // Constructors
-  ChessGame();
+  ChessGame(const bool hasBot, QString *fen = nullptr);
 
   // public Methods
   void drawDeadHolder(int x, int y, QColor color);
@@ -41,6 +41,7 @@ public:
 
   int _halfMovesCounter = 0;
   int _fullMovesCounter = 0;
+  bool _hasBot;
 
   void displayMainMenu();
 
@@ -49,6 +50,8 @@ public:
 
   inline int width() const { return SCENE_WIDTH; }
   inline int height() const { return SCENE_HEIGHT; }
+
+  QString *_fen;
 public slots:
   void start();
 

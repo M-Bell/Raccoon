@@ -31,5 +31,8 @@
         <file>images/tutorialBarPractice.png</file>
         <file>images/tutorialBarRules.png</file>
         <file>images/tutorialBtn.png</file>
+        <file>text/queen_king.txt</file>
+        <file>text/rook_king.txt</file>
+        <file>text/two_rooks_king.txt</file>
     </qresource>
 </RCC>
