@@ -2,6 +2,7 @@
 #include "ChessGame.h"
 #include "King.h"
 #include "Pawn.h"
+#include "Queen.h"
 #include "piecedialog.h"
 #include <QDateTime>
 #include <QRandomGenerator>
@@ -131,7 +132,12 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
       }
       if (p->side() == BLACK && p->getCurrentTile()->row() == 7) {
         _currentGame._playablePieces.removeAll(_currentGame.pieceToMove);
-        ChessPiece *piece = PieceDialog::getPiece(_currentGame.pieceToMove);
+        ChessPiece *piece = nullptr;
+        if (_currentGame._hasBot) {
+          piece = new Queen(BLACK, _currentGame);
+        } else {
+          piece = PieceDialog::getPiece(_currentGame.pieceToMove);
+        }
         _currentGame.removeFromScene(_currentGame.pieceToMove);
         _currentGame.pieceToMove = nullptr;
         _currentGame.addToScene(piece);
