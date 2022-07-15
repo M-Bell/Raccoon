@@ -41,5 +41,6 @@
         <file>images/alpha_chess_piece_rook.png</file>
         <file>images/alpha_chess_piece_rook_white.png</file>
         <file>images/backBtn.png</file>
+        <file>images/okBtn.png</file>
     </qresource>
 </RCC>
