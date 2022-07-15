@@ -58,17 +58,3 @@ void RulesWindow::on_back_clicked()
 
     }
 }
-
-=======
-RulesWindow::RulesWindow(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::RulesWindow)
-{
-    ui->setupUi(this);
-}
-
-RulesWindow::~RulesWindow()
-{
-    delete ui;
-}
->>>>>>> Stashed changes
