@@ -182,8 +182,7 @@ void ChessBoardTile::setColor(QColor color) {
 QColor &ChessBoardTile::getColor() { return _color; }
 
 void ChessBoardTile::placePiece(ChessPiece *piece) {
-  int shift = this -> TILE_SIZE;
-  piece->setPos(x() + shift / 2 - piece->pixmap().width() / 2,
+  piece->setPos(x() + this -> TILE_SIZE / 2 - piece->pixmap().width() / 2,
                 y() + this -> TILE_SIZE - piece->pixmap().height() - 2);
   piece->setCurrentTile(this);
   _currentPiece = piece;
