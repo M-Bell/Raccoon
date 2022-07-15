@@ -5,6 +5,7 @@
 #include "mainwindow.h"
 #include "openingschoosewindow.h"
 #include "ui_tutorialwindow.h"
+#include "ruleswindow.h"
 #include <QFont>
 #include <QPixmap>
 #include <QPushButton>
@@ -20,8 +21,6 @@ TutorialWindow::TutorialWindow(MainWindow *parent)
   int BUTTON_H = 60 * 1.1;
   int BAR_W = 1100;
   int BAR_H = 90;
-
-  //    this->setStyleSheet("background-color:#DDDDDD;");
 
   this->resize(WINDOW_W, WINDOW_H);
 
@@ -138,7 +137,13 @@ void TutorialWindow::on_tutorialBarPracticeBtn_clicked() {
   win.show();
 }
 
-void TutorialWindow::on_tutorialBarRulesBtn_clicked() {}
+
+void TutorialWindow::on_tutorialBarRulesBtn_clicked() {
+    RulesWindow rulesWindow;
+    rulesWindow.exec();
+    rulesWindow.show();
+}
+
 
 void TutorialWindow::on_tutorialBarOpeningsBtn_clicked() {
   OpeningsChooseWindow win(this);

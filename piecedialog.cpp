@@ -15,18 +15,18 @@ PieceDialog::PieceDialog(ChessPiece *init, QWidget *parent)
   switch (_current->side()) {
   case WHITE:
     ui->queen_button->setIcon(
-        QIcon(":/res/images/chess_piece_queen_white.png"));
-    ui->rook_button->setIcon(QIcon(":/res/images/chess_piece_rook_white.png"));
+        QIcon(":/res/images/alpha_chess_piece_queen_white.png"));
+    ui->rook_button->setIcon(QIcon(":/res/images/alpha_chess_piece_rook_white.png"));
     ui->bishop_button->setIcon(
-        QIcon(":/res/images/chess_piece_bishop_white.png"));
+        QIcon(":/res/images/alpha_chess_piece_bishop_white.png"));
     ui->knight_button->setIcon(
-        QIcon(":/res/images/chess_piece_knight_white.png"));
+        QIcon(":/res/images/alpha_chess_piece_knight_white.png"));
     break;
   case BLACK:
-    ui->queen_button->setIcon(QIcon(":/res/images/chess_piece_queen.png"));
-    ui->rook_button->setIcon(QIcon(":/res/images/chess_piece_rook.png"));
-    ui->bishop_button->setIcon(QIcon(":/res/images/chess_piece_bishop.png"));
-    ui->knight_button->setIcon(QIcon(":/res/images/chess_piece_knight.png"));
+    ui->queen_button->setIcon(QIcon(":/res/images/alpha_chess_piece_queen.png"));
+    ui->rook_button->setIcon(QIcon(":/res/images/alpha_chess_piece_rook.png"));
+    ui->bishop_button->setIcon(QIcon(":/res/images/alpha_chess_piece_bishop.png"));
+    ui->knight_button->setIcon(QIcon(":/res/images/alpha_chess_piece_knight.png"));
     break;
   }
 }

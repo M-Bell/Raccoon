@@ -9,9 +9,9 @@ Knight::Knight(ChessPieceSide side, ChessGame &game, QGraphicsItem *parent)
 
 void Knight::setImage() {
   if (_side == WHITE)
-    setPixmap(QPixmap(":/res/images/chess_piece_knight_white.png"));
+    setPixmap(QPixmap(":/res/images/alpha_chess_piece_knight_white.png"));
   else
-    setPixmap(QPixmap(":/res/images/chess_piece_knight.png"));
+    setPixmap(QPixmap(":/res/images/alpha_chess_piece_knight.png"));
 }
 
 void Knight::move(int x, int y) {

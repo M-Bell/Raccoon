@@ -7,7 +7,7 @@
 #include <QPushButton>
 #include <iostream>
 
-GameWindow::GameWindow(const bool hasBot, QString *fen, QWidget *parent)
+GameWindow::GameWindow(const bool hasBot, QString *fen, QWidget *parent, int btnType)
     : QDialog(parent), ui(new Ui::GameWindow), _fen(new QList<QString>()),
       _hasBot(hasBot) {
   ui->setupUi(this);
@@ -42,9 +42,12 @@ GameWindow::GameWindow(const bool hasBot, QString *fen, QWidget *parent)
   int BUTTON_W = 180 * 1.1;
   int BUTTON_H = 60 * 1.1;
 
-  //    this->setStyleSheet("background-color:rgba(76, 175, 80, 0.0);");
+  QPixmap backToMenuBtnPixmap;
+  if (btnType==0)
+    backToMenuBtnPixmap = QPixmap(":/res/images/backToMenuBtn.png");
+  else
+    backToMenuBtnPixmap = QPixmap(":/res/images/backBtn.png");
 
-  QPixmap backToMenuBtnPixmap(":/res/images/backToMenuBtn.png");
   QIcon backToMenuBtnIcon(backToMenuBtnPixmap);
 
   QPushButton *backToMenuBtn = new QPushButton(backToMenuBtnIcon, "", this);

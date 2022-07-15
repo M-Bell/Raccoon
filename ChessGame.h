@@ -51,11 +51,12 @@ public:
 
   void nextPos();
   void prevPos();
-  QGraphicsTextItem *_turnDisplay;
   inline int width() const { return SCENE_WIDTH; }
   inline int height() const { return SCENE_HEIGHT; }
 
   QList<QString> *_fen;
+  QGraphicsTextItem *_turnDisplay;
+
 public slots:
   void start();
 

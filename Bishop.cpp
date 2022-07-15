@@ -9,9 +9,9 @@ Bishop::Bishop(ChessPieceSide side, ChessGame &game, QGraphicsItem *parent)
 
 void Bishop::setImage() {
   if (_side == WHITE)
-    setPixmap(QPixmap(":/res/images/chess_piece_bishop_white.png"));
+    setPixmap(QPixmap(":/res/images/alpha_chess_piece_bishop_white.png"));
   else
-    setPixmap(QPixmap(":/res/images/chess_piece_bishop.png"));
+    setPixmap(QPixmap(":/res/images/alpha_chess_piece_bishop.png"));
 }
 
 void Bishop::moves() {
