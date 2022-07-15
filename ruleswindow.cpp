@@ -1,7 +1,6 @@
 #include "ruleswindow.h"
 #include "ui_ruleswindow.h"
 
-<<<<<<< Updated upstream
 #include <QFile>
 
 RulesWindow::RulesWindow(QWidget *parent) :
