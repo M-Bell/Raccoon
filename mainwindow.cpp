@@ -19,8 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     int LOGO_W = 470/1.2;
     int LOGO_H = 460/1.2;
 
-//    this->setStyleSheet("background-color:#DDDDDD;");
-
     this->resize(WINDOW_W,WINDOW_H);
 
     // Raccoon logo
