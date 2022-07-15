@@ -5,6 +5,17 @@
 
 #include <QFile>
 
+RulesWindow::RulesWindow(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::RulesWindow) {
+    ui->setupUi(this);
+    init();
+}
+
+RulesWindow::~RulesWindow() {
+    delete ui;
+}
+
 
 QString read(const QString& path) {
     QFile file(path);
