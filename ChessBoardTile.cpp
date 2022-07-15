@@ -250,7 +250,13 @@ void ChessBoardTile::validateCheck() {
       }
     }
   }
+
   bool cantMove = hasCheckmate();
+  if (_currentGame._halfMovesCounter == 100) {
+    _currentGame.gameRunning() = false;
+    _currentGame.showMessage(
+        (char *)"Stalemate: DRAW (Exceeded allowed moves)");
+  }
   if (!c && cantMove) {
     if (kingPiece)
       kingPiece->getCurrentTile()->setColor(Qt::blue);
@@ -273,9 +279,5 @@ void ChessBoardTile::validateCheck() {
     if (kingPiece)
       kingPiece->getCurrentTile()->setColor(Qt::blue);
   }
-  if (_currentGame._halfMovesCounter == 100) {
-    _currentGame.gameRunning() = false;
-    _currentGame.showMessage(
-        (char *)"Stalemate: DRAW (Exceeded allowed moves)");
-  }
+
 }
