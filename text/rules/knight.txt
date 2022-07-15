@@ -1,6 +1,3 @@
-"How knight moves?"
-WFM Alexandra Botez on Magnus Carlsen interwiew after game 5 of match against Ian Niepomniashchi for world champion title
-Answer:
-"The Knight moves 1 square along a rank or file and then 1 square diagonally away from it's original square"
-
+"How knight moves?" WFM Alexandra Botez on Magnus Carlsen interwiew after game 5 of match against Ian Niepomniashchi for world champion title
+Answer: "The Knight moves 1 square along a rank or file and then 1 square diagonally away from it's original square"
 Knight is the only piece, which can jump over other pieces: if square, where knight can move is free, knight can move here

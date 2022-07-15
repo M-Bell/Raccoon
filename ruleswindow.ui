@@ -6,10 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-
     <width>1096</width>
-    <height>695</height>
-
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,18 +16,15 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-
-     <y>30</y>
-     <width>571</width>
-     <height>461</height>
-
+     <x>50</x>
+     <y>0</y>
+     <width>981</width>
+     <height>701</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="3" column="0">
      <widget class="QPushButton" name="back">
-
       <property name="text">
        <string>&lt;&lt;</string>
       </property>
@@ -37,7 +32,6 @@
     </item>
     <item row="3" column="1">
      <widget class="QPushButton" name="forward">
-
       <property name="text">
        <string>&gt;&gt;</string>
       </property>
@@ -67,7 +61,6 @@
       </property>
       <property name="wordWrap">
        <bool>true</bool>
-
       </property>
      </widget>
     </item>
@@ -84,7 +77,6 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
-
       </property>
      </widget>
     </item>
