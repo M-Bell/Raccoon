@@ -40,5 +40,6 @@
         <file>images/alpha_chess_piece_queen_white.png</file>
         <file>images/alpha_chess_piece_rook.png</file>
         <file>images/alpha_chess_piece_rook_white.png</file>
+        <file>images/backBtn.png</file>
     </qresource>
 </RCC>
