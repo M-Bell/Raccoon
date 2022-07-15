@@ -32,6 +32,7 @@ SOURCES += \
     piece.cpp \
     piecedialog.cpp \
     pieceinstructionswindow.cpp \
+    ruleswindow.cpp \
     tutorialwindow.cpp
 
 HEADERS += \
@@ -53,6 +54,7 @@ HEADERS += \
     openingschoosewindow.h \
     piecedialog.h \
     pieceinstructionswindow.h \
+    ruleswindow.h \
     СhessBoard.h \
     gamewindow.h \
     mainwindow.h \
@@ -68,6 +70,7 @@ FORMS += \
     openingschoosewindow.ui \
     piecedialog.ui \
     pieceinstructionswindow.ui \
+    ruleswindow.ui \
     tutorialwindow.ui
 
 # Default rules for deployment.

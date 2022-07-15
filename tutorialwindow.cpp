@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "openingschoosewindow.h"
 #include "ui_tutorialwindow.h"
+#include "ruleswindow.h"
 #include <QFont>
 #include <QPixmap>
 #include <QPushButton>
@@ -132,7 +133,11 @@ void TutorialWindow::on_tutorialBarPracticeBtn_clicked() {
   win.show();
 }
 
-void TutorialWindow::on_tutorialBarRulesBtn_clicked() {}
+void TutorialWindow::on_tutorialBarRulesBtn_clicked() {
+    RulesWindow rules;
+    rules.exec();
+    rules.show();
+}
 
 void TutorialWindow::on_tutorialBarOpeningsBtn_clicked() {
   OpeningsChooseWindow win(this);

@@ -50,4 +50,21 @@
         <file>text/one_move_checkmate_5.txt</file>
         <file>text/one_move_checkmate_6.txt</file>
     </qresource>
+    <qresource prefix="/rules">
+        <file>text/rules/bishop.txt</file>
+        <file>text/rules/king.txt</file>
+        <file>text/rules/knight.txt</file>
+        <file>text/rules/pawn.txt</file>
+        <file>text/rules/queen.txt</file>
+        <file>text/rules/rook.txt</file>
+        <file>text/rules/intro.txt</file>
+        <file>images/rules/0.bmp</file>
+        <file>images/rules/1.bmp</file>
+        <file>images/rules/2.bmp</file>
+        <file>images/rules/3.bmp</file>
+        <file>images/rules/4.bmp</file>
+        <file>images/rules/5.bmp</file>
+        <file>images/rules/6.bmp</file>
+        <file>images/rules/7.bmp</file>
+    </qresource>
 </RCC>
