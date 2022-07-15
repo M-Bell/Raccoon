@@ -22,8 +22,6 @@ TutorialWindow::TutorialWindow(MainWindow *parent)
   int BAR_W = 1100;
   int BAR_H = 90;
 
-  //    this->setStyleSheet("background-color:#DDDDDD;");
-
   this->resize(WINDOW_W, WINDOW_H);
 
   QPixmap backToMenuBtnPixmap(":/res/images/backToMenuBtn.png");
@@ -139,11 +137,13 @@ void TutorialWindow::on_tutorialBarPracticeBtn_clicked() {
   win.show();
 }
 
+
 void TutorialWindow::on_tutorialBarRulesBtn_clicked() {
-    RulesWindow rules;
-    rules.exec();
-    rules.show();
+    RulesWindow rulesWindow;
+    rulesWindow.exec();
+    rulesWindow.show();
 }
+
 
 void TutorialWindow::on_tutorialBarOpeningsBtn_clicked() {
   OpeningsChooseWindow win(this);

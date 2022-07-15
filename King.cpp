@@ -11,9 +11,9 @@ King::King(ChessPieceSide side, ChessGame &game, QGraphicsItem *parent)
 
 void King::setImage() {
   if (_side == WHITE)
-    setPixmap(QPixmap(":/res/images/chess_piece_king_white.png"));
+    setPixmap(QPixmap(":/res/images/alpha_chess_piece_king_white.png"));
   else
-    setPixmap(QPixmap(":/res/images/chess_piece_king.png"));
+    setPixmap(QPixmap(":/res/images/alpha_chess_piece_king.png"));
 }
 void King::findUnSafeLocation() {
 

@@ -23,7 +23,7 @@ public:
   int CELL_SIZE;
   int FONT_SIZE;
   explicit GameWindow(const bool hasBot, QString *fen = nullptr,
-                      QWidget *parent = nullptr);
+                      QWidget *parent = nullptr, int btnType=0);
   ~GameWindow();
 
   void draw();

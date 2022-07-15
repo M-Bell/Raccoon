@@ -15,8 +15,13 @@ public:
     explicit GameInfoDialog(QString sourceFile, QWidget *parent = nullptr);
     ~GameInfoDialog();
 
+
+private slots:
+    void on_backToMenuBtn_clicked();
+
 private:
     Ui::GameInfoDialog *ui;
+    QWidget *parent;
 };
 
 #endif // GAMEINFODIALOG_H

@@ -15,6 +15,7 @@ public:
     explicit RulesWindow(QWidget *parent = nullptr);
     ~RulesWindow();
 
+
 private slots:
     void on_forward_clicked();
 

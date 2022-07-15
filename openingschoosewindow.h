@@ -22,8 +22,11 @@ private slots:
 
     void on_italian_game_button_clicked();
 
+    void on_backToMenuBtn_clicked();
+
 private:
     Ui::OpeningsChooseWindow *ui;
+    QWidget *parent;
 };
 
 #endif // OPENINGSCHOOSEWINDOW_H

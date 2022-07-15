@@ -8,9 +8,9 @@ Rook::Rook(ChessPieceSide side, ChessGame &game, QGraphicsItem *parent)
 
 void Rook::setImage() {
   if (_side == WHITE)
-    setPixmap(QPixmap(":/res/images/chess_piece_rook_white.png"));
+    setPixmap(QPixmap(":/res/images/alpha_chess_piece_rook_white.png"));
   else
-    setPixmap(QPixmap(":/res/images/chess_piece_rook.png"));
+    setPixmap(QPixmap(":/res/images/alpha_chess_piece_rook.png"));
 }
 
 void Rook::moves() {
