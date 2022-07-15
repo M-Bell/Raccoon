@@ -20,8 +20,6 @@ TutorialWindow::TutorialWindow(MainWindow *parent)
   int BAR_W = 1100;
   int BAR_H = 90;
 
-  //    this->setStyleSheet("background-color:#DDDDDD;");
-
   this->resize(WINDOW_W, WINDOW_H);
 
   QPixmap backToMenuBtnPixmap(":/res/images/backToMenuBtn.png");
