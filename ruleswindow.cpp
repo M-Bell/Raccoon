@@ -1,7 +1,5 @@
-
 #include "ruleswindow.h"
 #include "ui_ruleswindow.h"
-
 
 #include <QFile>
 
@@ -61,14 +59,3 @@ void RulesWindow::on_back_clicked()
     }
 }
 
-RulesWindow::RulesWindow(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::RulesWindow)
-{
-    ui->setupUi(this);
-}
-
-RulesWindow::~RulesWindow()
-{
-    delete ui;
-}
