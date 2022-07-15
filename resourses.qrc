@@ -28,6 +28,12 @@
         <file>text/queen_king_fen.txt</file>
         <file>text/rook_king_fen.txt</file>
         <file>text/two_rooks_king_fen.txt</file>
+        <file>text/one_move_checkmate_1.txt</file>
+        <file>text/one_move_checkmate_2.txt</file>
+        <file>text/one_move_checkmate_3.txt</file>
+        <file>text/one_move_checkmate_4.txt</file>
+        <file>text/one_move_checkmate_5.txt</file>
+        <file>text/one_move_checkmate_6.txt</file>
         <file>images/alpha_chess_piece_bishop.png</file>
         <file>images/alpha_chess_piece_bishop_white.png</file>
         <file>images/alpha_chess_piece_king.png</file>
@@ -44,5 +50,22 @@
         <file>images/okBtn.png</file>
         <file>images/nextBtn.png</file>
         <file>images/prevBtn.png</file>
+    </qresource>
+    <qresource prefix="/rules">
+        <file>text/rules/bishop.txt</file>
+        <file>text/rules/king.txt</file>
+        <file>text/rules/knight.txt</file>
+        <file>text/rules/pawn.txt</file>
+        <file>text/rules/queen.txt</file>
+        <file>text/rules/rook.txt</file>
+        <file>text/rules/intro.txt</file>
+        <file>images/rules/0.bmp</file>
+        <file>images/rules/1.bmp</file>
+        <file>images/rules/2.bmp</file>
+        <file>images/rules/3.bmp</file>
+        <file>images/rules/4.bmp</file>
+        <file>images/rules/5.bmp</file>
+        <file>images/rules/6.bmp</file>
+        <file>images/rules/7.bmp</file>
     </qresource>
 </RCC>

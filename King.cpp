@@ -1,6 +1,7 @@
 #include "King.h"
 #include "ChessGame.h"
 #include "Pawn.h"
+#include "Rook.h"
 #include <QDebug>
 
 King::King(ChessPieceSide side, ChessGame &game, QGraphicsItem *parent)
@@ -151,10 +152,13 @@ void King::moves() {
     //      _location.last()->setColor(Qt::red);
     //    }
   }
-  if (!this->_hasMoved) {
+  if (!this->_hasMoved && !_currentGame._check->isVisible()) {
     if (_side == WHITE) {
+      Rook *castlingRook =
+          dynamic_cast<Rook *>(_currentGame._allTiles[7][7]->currentPiece());
       if (_currentGame._allTiles[7][7]->currentPiece() != nullptr &&
-          !_currentGame._allTiles[7][7]->currentPiece()->hasMoved()) {
+          castlingRook && !castlingRook->hasMoved() &&
+          castlingRook->side() == _side) {
         if (_currentGame._allTiles[7][6]->currentPiece() == nullptr &&
             _currentGame._allTiles[7][5]->currentPiece() == nullptr) {
           _location.append(_currentGame._allTiles[7][6]);
@@ -164,8 +168,11 @@ void King::moves() {
       } else {
         _canCastleKingside = false;
       }
+      castlingRook =
+          dynamic_cast<Rook *>(_currentGame._allTiles[7][0]->currentPiece());
       if (_currentGame._allTiles[7][0]->currentPiece() != nullptr &&
-          !_currentGame._allTiles[7][0]->currentPiece()->hasMoved()) {
+          castlingRook && !castlingRook->hasMoved() &&
+          castlingRook->side() == _side) {
         if (_currentGame._allTiles[7][1]->currentPiece() == nullptr &&
             _currentGame._allTiles[7][2]->currentPiece() == nullptr &&
             _currentGame._allTiles[7][3]->currentPiece() == nullptr) {
@@ -177,8 +184,11 @@ void King::moves() {
         _canCastleQueenside = false;
       }
     } else {
+      Rook *castlingRook =
+          dynamic_cast<Rook *>(_currentGame._allTiles[0][7]->currentPiece());
       if (_currentGame._allTiles[0][7]->currentPiece() != nullptr &&
-          !_currentGame._allTiles[0][7]->currentPiece()->hasMoved()) {
+          castlingRook && !castlingRook->hasMoved() &&
+          castlingRook->side() == _side) {
         if (_currentGame._allTiles[0][6]->currentPiece() == nullptr &&
             _currentGame._allTiles[0][5]->currentPiece() == nullptr) {
           _location.append(_currentGame._allTiles[0][6]);
@@ -188,8 +198,11 @@ void King::moves() {
       } else {
         _canCastleKingside = false;
       }
+      castlingRook =
+          dynamic_cast<Rook *>(_currentGame._allTiles[0][0]->currentPiece());
       if (_currentGame._allTiles[0][0]->currentPiece() != nullptr &&
-          !_currentGame._allTiles[0][0]->currentPiece()->hasMoved()) {
+          castlingRook && !castlingRook->hasMoved() &&
+          castlingRook->side() == _side) {
 
         if (_currentGame._allTiles[0][1]->currentPiece() == nullptr &&
             _currentGame._allTiles[0][2]->currentPiece() == nullptr &&

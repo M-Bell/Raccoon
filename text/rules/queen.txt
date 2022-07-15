@@ -1,0 +1,1 @@
+Queen moves straight and diagonaly. This is the most powerful piece, so try not to lose it.

@@ -1,0 +1,2 @@
+King can make move on 1 cell of every direction. Cannot move on cells, if enemy can move it's piece there i.e. cannot be attacked(checked) after his move
+Attack on king(when enemy piece can take king on next move) called check. Check, where king cannot escape called mate, and those whose king mated are lost

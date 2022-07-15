@@ -51,7 +51,6 @@ public:
 
   void nextPos();
   void prevPos();
-
   inline int width() const { return SCENE_WIDTH; }
   inline int height() const { return SCENE_HEIGHT; }
 
@@ -68,6 +67,7 @@ private:
   ChessPieceSide _turn;
   ChessBoard *_chessBoard;
   QList<QGraphicsItem *> _listG;
+
   bool _gameRunning;
 
   char getPieceChar(ChessPiece *);

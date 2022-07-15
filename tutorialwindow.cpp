@@ -1,5 +1,7 @@
 #include "tutorialwindow.h"
+#include "choosepracticewindow.h"
 #include "endgameschoosewindow.h"
+#include "gamewindow.h"
 #include "mainwindow.h"
 #include "openingschoosewindow.h"
 #include "ui_tutorialwindow.h"
@@ -96,8 +98,8 @@ TutorialWindow::TutorialWindow(MainWindow *parent)
   tutorialBarPracticeBtn->setIconSize(QSize(BAR_W, BAR_H));
   tutorialBarPracticeBtn->setStyleSheet(
       "background-color: rgba(255, 255, 255, 0);");
-  //    connect(tutorialBarPracticeBtn, SIGNAL(clicked()), this,
-  //    SLOT(on_tutorialBarPracticeBtn_clicked()));
+  connect(tutorialBarPracticeBtn, SIGNAL(clicked()), this,
+          SLOT(on_tutorialBarPracticeBtn_clicked()));
   tutorialBarPracticeBtn->show();
 
   QPixmap tutorialBarAnalysisPixmap(":/res/images/tutorialBarAnalysis.png");
@@ -112,8 +114,8 @@ TutorialWindow::TutorialWindow(MainWindow *parent)
   tutorialBarAnalysisBtn->setIconSize(QSize(BAR_W, BAR_H));
   tutorialBarAnalysisBtn->setStyleSheet(
       "background-color: rgba(255, 255, 255, 0);");
-  //    connect(tutorialBarAnalysisBtn, SIGNAL(clicked()), this,
-  //    SLOT(on_tutorialBarAnalysisBtn_clicked()));
+  connect(tutorialBarAnalysisBtn, SIGNAL(clicked()), this,
+          SLOT(on_tutorialBarAnalysisBtn_clicked()));
   tutorialBarAnalysisBtn->show();
 }
 
@@ -124,11 +126,24 @@ void TutorialWindow::on_backToMenuBtn_clicked() {
   hide();
 }
 
+void TutorialWindow::on_tutorialBarAnalysisBtn_clicked() {
+  GameWindow *game = new GameWindow(false, nullptr, this);
+  game->show();
+}
+
+void TutorialWindow::on_tutorialBarPracticeBtn_clicked() {
+  ChoosePracticeWindow win(this);
+  win.exec();
+  win.show();
+}
+
+
 void TutorialWindow::on_tutorialBarRulesBtn_clicked() {
     RulesWindow rulesWindow;
     rulesWindow.exec();
     rulesWindow.show();
 }
+
 
 void TutorialWindow::on_tutorialBarOpeningsBtn_clicked() {
   OpeningsChooseWindow win(this);

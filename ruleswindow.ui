@@ -6,8 +6,10 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>661</width>
-    <height>538</height>
+
+    <width>1096</width>
+    <height>695</height>
+
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,37 +19,72 @@
    <property name="geometry">
     <rect>
      <x>20</x>
+
      <y>30</y>
      <width>571</width>
      <height>461</height>
+
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="3" column="0">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="back">
+
       <property name="text">
        <string>&lt;&lt;</string>
       </property>
      </widget>
     </item>
     <item row="3" column="1">
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="forward">
+
       <property name="text">
        <string>&gt;&gt;</string>
       </property>
      </widget>
     </item>
     <item row="1" column="0" colspan="2">
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="description">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string>Description</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+
       </property>
      </widget>
     </item>
     <item row="0" column="0" colspan="2">
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="image">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+
       </property>
      </widget>
     </item>

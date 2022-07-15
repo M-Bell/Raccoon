@@ -3,6 +3,7 @@
 #include "King.h"
 #include "Pawn.h"
 #include "piecedialog.h"
+#include <QDateTime>
 #include <QRandomGenerator>
 
 ChessBoardTile::ChessBoardTile(ChessGame &game, QGraphicsItem *parent)
@@ -157,21 +158,29 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void ChessBoardTile::moveBlack() {
-  ChessPiece *piece = nullptr;
+  QList<ChessPiece *> _black;
   for (qsizetype i = 0; i < _currentGame._playablePieces.length(); ++i) {
     if (_currentGame._playablePieces.at(i)->side() == BLACK) {
-      piece = _currentGame._playablePieces.at(i);
-      piece->mousePressEvent(nullptr);
-      break;
+      _black.append(_currentGame._playablePieces.at(i));
     }
   }
-  if (!piece)
+  if (_black.length() <= 0)
     return;
-  int len = piece->moveLocation().length();
-  if (len > 0) {
-    QRandomGenerator rnd;
-    piece->moveLocation().at(rnd.bounded(len))->mousePressEvent(nullptr);
-  }
+  QRandomGenerator rnd(QDateTime::currentDateTime().time().msecsSinceStartOfDay());
+  do {
+    int blackAmount = _black.size();
+    int rndBlack = rnd.bounded(blackAmount);
+    _black.at(rndBlack)->mousePressEvent(nullptr);
+    int len = _black.at(rndBlack)->moveLocation().length();
+    if (len > 0) {
+      _black.at(rndBlack)
+          ->moveLocation()
+          .at(rnd.bounded(len))
+          ->mousePressEvent(nullptr);
+      break;
+    }
+    _black.at(rndBlack)->mousePressEvent(nullptr);
+  } while (_currentGame.gameRunning());
 }
 
 void ChessBoardTile::setColor(QColor color) {
@@ -241,7 +250,13 @@ void ChessBoardTile::validateCheck() {
       }
     }
   }
+
   bool cantMove = hasCheckmate();
+  if (_currentGame._halfMovesCounter == 100) {
+    _currentGame.gameRunning() = false;
+    _currentGame.showMessage(
+        (char *)"Stalemate: DRAW (Exceeded allowed moves)");
+  }
   if (!c && cantMove) {
     if (kingPiece)
       kingPiece->getCurrentTile()->setColor(Qt::blue);
@@ -264,9 +279,5 @@ void ChessBoardTile::validateCheck() {
     if (kingPiece)
       kingPiece->getCurrentTile()->setColor(Qt::blue);
   }
-  if (_currentGame._halfMovesCounter == 100) {
-    _currentGame.gameRunning() = false;
-    _currentGame.showMessage(
-        (char *)"Stalemate: DRAW (Exceeded allowed moves)");
-  }
+
 }

@@ -22,6 +22,7 @@ SOURCES += \
     Pawn.cpp \
     Queen.cpp \
     Rook.cpp \
+    choosepracticewindow.cpp \
     endgameschoosewindow.cpp \
     gameinfodialog.cpp \
     gamewindow.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     Pawn.h \
     Queen.h \
     Rook.h \
+    choosepracticewindow.h \
     endgameschoosewindow.h \
     gameinfodialog.h \
     openingschoosewindow.h \
@@ -60,6 +62,7 @@ HEADERS += \
     tutorialwindow.h
 
 FORMS += \
+    choosepracticewindow.ui \
     endgameschoosewindow.ui \
     gameinfodialog.ui \
     mainwindow.ui \
