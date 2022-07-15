@@ -5,7 +5,27 @@
 
 EndgamesChooseWindow::EndgamesChooseWindow(QWidget *parent)
     : QDialog(parent), ui(new Ui::EndgamesChooseWindow) {
+  this->parent = parent;
   ui->setupUi(this);
+
+  int WINDOW_W = 854;
+  int WINDOW_H = 480;
+  int BUTTON_W = 180 * 1.1;
+  int BUTTON_H = 60 * 1.1;
+
+  this->resize(WINDOW_W, WINDOW_H);
+
+  QPushButton *backToMenuBtn = ui -> backBtn;
+
+  QPixmap backToMenuBtnPixmap(":/res/images/backBtn.png");
+  QIcon backToMenuBtnIcon(backToMenuBtnPixmap);
+  backToMenuBtn->setIcon(backToMenuBtnIcon);
+  backToMenuBtn->resize(BUTTON_W, BUTTON_H);
+  backToMenuBtn->setIconSize(QSize(BUTTON_W, BUTTON_H));
+  backToMenuBtn->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
+  connect(backToMenuBtn, SIGNAL(clicked()), this,
+          SLOT(on_backToMenuBtn_clicked()));
+  backToMenuBtn->show();
 }
 
 EndgamesChooseWindow::~EndgamesChooseWindow() { delete ui; }
@@ -33,3 +53,9 @@ void EndgamesChooseWindow::on_rook_king_endgame_clicked() {
                  (QWidget *)QDialog::parent(), 1);
   win.exec();
 }
+
+void EndgamesChooseWindow::on_backToMenuBtn_clicked() {
+  parent->show();
+  hide();
+}
+

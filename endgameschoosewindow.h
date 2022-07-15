@@ -22,8 +22,11 @@ private slots:
 
     void on_rook_king_endgame_clicked();
 
+    void on_backToMenuBtn_clicked();
+
 private:
     Ui::EndgamesChooseWindow *ui;
+    QWidget *parent;
 };
 
 #endif // ENDGAMESCHOOSEWINDOW_H
