@@ -22,6 +22,8 @@ public:
   ChessBoardTile(ChessGame &game, QGraphicsItem *parent = 0);
   ~ChessBoardTile();
 
+  int TILE_SIZE;
+
   // public member function
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
 

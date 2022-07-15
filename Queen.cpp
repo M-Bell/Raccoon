@@ -9,9 +9,9 @@ Queen::Queen(ChessPieceSide side, ChessGame &game, QGraphicsItem *parent)
 
 void Queen::setImage() {
   if (_side == WHITE)
-    setPixmap(QPixmap(":/res/images/chess_piece_queen_white.png"));
+    setPixmap(QPixmap(":/res/images/alpha_chess_piece_queen_white.png"));
   else
-    setPixmap(QPixmap(":/res/images/chess_piece_queen.png"));
+    setPixmap(QPixmap(":/res/images/alpha_chess_piece_queen.png"));
 }
 
 void Queen::moves() {

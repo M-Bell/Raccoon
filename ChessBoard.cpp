@@ -105,7 +105,6 @@ void ChessBoard::placePieces() {
     int pieceCode = 0;
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
-
         ChessBoardTile *tile = _currentGame._allTiles[i][j];
         if (i < 2) {
           tile->placePiece(_allPieces[pieceCode]);
