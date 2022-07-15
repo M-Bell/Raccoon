@@ -164,6 +164,8 @@ void ChessBoardTile::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void ChessBoardTile::moveBlack() {
+  if (_currentGame.turn() != BLACK)
+    return;
   QList<ChessPiece *> _black;
   for (qsizetype i = 0; i < _currentGame._playablePieces.length(); ++i) {
     if (_currentGame._playablePieces.at(i)->side() == BLACK) {
