@@ -58,3 +58,4 @@ void RulesWindow::on_back_clicked()
 
     }
 }
+
