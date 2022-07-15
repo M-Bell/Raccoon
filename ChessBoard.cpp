@@ -128,10 +128,10 @@ void ChessBoard::placePieces() {
     QString position = data.at(0);
     if (data.at(1) == "b") {
       _currentGame.turn() = BLACK;
-      _currentGame->_turnDisplay->setPlainText("Turn : BLACK");
+      _currentGame._turnDisplay->setPlainText("Turn : BLACK");
     } else {
       _currentGame.turn() = WHITE;
-      _currentGame->_turnDisplay->setPlainText("Turn : WHITE");
+      _currentGame._turnDisplay->setPlainText("Turn : WHITE");
     }
     _currentGame.changeTurn();
     _currentGame._halfMovesCounter = data.at(4).toInt();

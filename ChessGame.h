@@ -56,6 +56,8 @@ public:
   inline int height() const { return SCENE_HEIGHT; }
 
   QList<QString> *_fen;
+  QGraphicsTextItem *_turnDisplay;
+
 public slots:
   void start();
 
@@ -66,7 +68,6 @@ private:
   ChessPieceSide _turn;
   ChessBoard *_chessBoard;
   QList<QGraphicsItem *> _listG;
-  QGraphicsTextItem *_turnDisplay;
   bool _gameRunning;
 
   char getPieceChar(ChessPiece *);
