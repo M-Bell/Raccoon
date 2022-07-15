@@ -31,9 +31,9 @@ public:
 private slots:
   void on_backToMenuBtn_clicked();
 
-  void on_next_pos_clicked();
+  void on_nextBtn_clicked();
 
-  void on_prev_pos_clicked();
+  void on_prevBtn_clicked();
 
 private:
   Ui::GameWindow *ui;
