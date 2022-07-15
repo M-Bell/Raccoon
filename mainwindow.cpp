@@ -95,7 +95,7 @@ void MainWindow::on_exitBtn_clicked()
 void MainWindow::on_playBtn_clicked()
 {
     hide();
-    GameWindow *game = new GameWindow(false, nullptr, this);
+    GameWindow *game = new GameWindow(true, nullptr, this);
     game -> show();
 }
 
