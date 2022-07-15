@@ -138,7 +138,7 @@ void ChessGame::start() {
 
   addToScene(_turnDisplay);
   QGraphicsTextItem *whitePiece = new QGraphicsTextItem();
-  whitePiece->setPos(SCENE_WIDTH * 0.1 - SCENE_WIDTH * 0.085, 0); // SCENE_HEIGHT * 0.02
+  whitePiece->setPos(SCENE_WIDTH * 0.1 - SCENE_WIDTH * 0.085, 0);
   whitePiece->setZValue(1);
   whitePiece->setDefaultTextColor(Qt::white);
   whitePiece->setFont(QFont("", 14));
@@ -146,7 +146,7 @@ void ChessGame::start() {
   addToScene(whitePiece);
   QGraphicsTextItem *blackPiece = new QGraphicsTextItem();
 
-  blackPiece->setPos(SCENE_WIDTH * 0.9 - SCENE_WIDTH * 0.085, 0); // 10 todo
+  blackPiece->setPos(SCENE_WIDTH * 0.9 - SCENE_WIDTH * 0.085, 0);
   blackPiece->setZValue(1);
   blackPiece->setDefaultTextColor(Qt::black);
   blackPiece->setFont(QFont("", 14));
