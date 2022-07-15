@@ -15,6 +15,7 @@ public:
     explicit RulesWindow(QWidget *parent = nullptr);
     ~RulesWindow();
 
+<<<<<<< Updated upstream
 private slots:
     void on_forward_clicked();
 
@@ -26,6 +27,10 @@ private:
     int currentPage = 0;
 
     void init();
+=======
+private:
+    Ui::RulesWindow *ui;
+>>>>>>> Stashed changes
 };
 
 #endif // RULESWINDOW_H

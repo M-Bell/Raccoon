@@ -6,8 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< Updated upstream
     <width>1096</width>
     <height>695</height>
+=======
+    <width>661</width>
+    <height>538</height>
+>>>>>>> Stashed changes
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,27 +22,42 @@
    <property name="geometry">
     <rect>
      <x>20</x>
+<<<<<<< Updated upstream
      <y>50</y>
      <width>1041</width>
      <height>601</height>
+=======
+     <y>30</y>
+     <width>571</width>
+     <height>461</height>
+>>>>>>> Stashed changes
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="3" column="0">
+<<<<<<< Updated upstream
      <widget class="QPushButton" name="back">
+=======
+     <widget class="QPushButton" name="pushButton">
+>>>>>>> Stashed changes
       <property name="text">
        <string>&lt;&lt;</string>
       </property>
      </widget>
     </item>
     <item row="3" column="1">
+<<<<<<< Updated upstream
      <widget class="QPushButton" name="forward">
+=======
+     <widget class="QPushButton" name="pushButton_2">
+>>>>>>> Stashed changes
       <property name="text">
        <string>&gt;&gt;</string>
       </property>
      </widget>
     </item>
     <item row="1" column="0" colspan="2">
+<<<<<<< Updated upstream
      <widget class="QLabel" name="description">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -61,10 +81,16 @@
       </property>
       <property name="wordWrap">
        <bool>true</bool>
+=======
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>TextLabel</string>
+>>>>>>> Stashed changes
       </property>
      </widget>
     </item>
     <item row="0" column="0" colspan="2">
+<<<<<<< Updated upstream
      <widget class="QLabel" name="image">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -77,6 +103,11 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+=======
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>TextLabel</string>
+>>>>>>> Stashed changes
       </property>
      </widget>
     </item>
