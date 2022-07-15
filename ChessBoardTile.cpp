@@ -9,10 +9,10 @@
 ChessBoardTile::ChessBoardTile(ChessGame &game, QGraphicsItem *parent)
     : QGraphicsRectItem(parent), _currentGame(game) {
 
-  this -> TILE_SIZE = 63; // size in px of a tile
+  this->TILE_SIZE = 63; // size in px of a tile
 
   // making the Square CHess Box
-  setRect(0, 0, this -> TILE_SIZE, this -> TILE_SIZE);
+  setRect(0, 0, this->TILE_SIZE, this->TILE_SIZE);
   _brush.setStyle(Qt::SolidPattern);
   setZValue(-1);
   _currentPiece = nullptr;
@@ -166,7 +166,8 @@ void ChessBoardTile::moveBlack() {
   }
   if (_black.length() <= 0)
     return;
-  QRandomGenerator rnd(QDateTime::currentDateTime().time().msecsSinceStartOfDay());
+  QRandomGenerator rnd(
+      QDateTime::currentDateTime().time().msecsSinceStartOfDay());
   do {
     int blackAmount = _black.size();
     int rndBlack = rnd.bounded(blackAmount);
@@ -191,8 +192,8 @@ void ChessBoardTile::setColor(QColor color) {
 QColor &ChessBoardTile::getColor() { return _color; }
 
 void ChessBoardTile::placePiece(ChessPiece *piece) {
-  piece->setPos(x() + this -> TILE_SIZE / 2 - piece->pixmap().width() / 2,
-                y() + this -> TILE_SIZE - piece->pixmap().height() - 2);
+  piece->setPos(x() + this->TILE_SIZE / 2 - piece->pixmap().width() / 2,
+                y() + this->TILE_SIZE - piece->pixmap().height() - 2);
   piece->setCurrentTile(this);
   _currentPiece = piece;
 }
@@ -279,5 +280,7 @@ void ChessBoardTile::validateCheck() {
     if (kingPiece)
       kingPiece->getCurrentTile()->setColor(Qt::blue);
   }
-
+  if (!c) {
+    _currentGame._check->setVisible(false);
+  }
 }
